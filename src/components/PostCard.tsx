@@ -1,15 +1,13 @@
 import { FaRegCommentAlt, FaTrash } from "react-icons/fa";
 import { TbArrowBigUp, TbArrowBigDown } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation, usePaginatedQuery, useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel"
 import { useUser } from "@clerk/clerk-react";
 import "../styles/PostCard.css";
 import { useState } from "react";
 import Comment from "./Comment";
-import { useFormStatus } from "react-dom";
-import { hasDownvoted, hasUpvoted, toggleUpvote } from "../../convex/vote";
 
 interface Post {
   _id: Id<"post">;
@@ -53,29 +51,26 @@ interface CommentSectionProps {
 }
 
 interface VoteButtonsProps {
-    postId: Id<"post">;
     voteCounts: {total: number; upvotes: number; downvotes: number} | undefined;
     hasUpvoted: boolean | undefined;
-    hasDownvotesd: boolean | undefined;
+    hasDownvoted: boolean | undefined;
     onUpvote: () => void;
-    downUpvote: () => void;
+    onDownvote: () => void;
 }
 
-const VoteButtons = ({voteCounts, hasUpvoted, hasDownvoted, onUpvote, onDownvote}: VoteButtonProps) => {
+const VoteButtons = ({voteCounts, hasUpvoted, hasDownvoted, onUpvote, onDownvote}: VoteButtonsProps) => {
     return <div className="post-votes">
         <span className="vote-count upvote-count">{voteCounts?.upvotes ?? 0}</span>
-        <button className={`votebutton ${hasUpvoted ? "voted" : ""}`} onClick={onUpvote}>
+        <button className={`vote-button ${hasUpvoted ? "voted" : ""}`} onClick={onUpvote}>
             <TbArrowBigUp size={24} />
         </button>
 
-        <span className="vote-cout total-count">{voteCounts?.total ?? 0}</span>
+        <span className="vote-count total-count">{voteCounts?.total ?? 0}</span>
 
-        <span className="vote-count downvote-count">{voteCounts?.downvotes ?? 0}</span>
-        <button className={`votebutton ${hasDownvoted ? "voted" : ""}`} onClick={onDownvote}>
+        <button className={`vote-button ${hasDownvoted ? "voted" : ""}`} onClick={onDownvote}>
             <TbArrowBigDown size={24} />
         </button>
-
-   
+        <span className="vote-count downvote-count">{voteCounts?.downvotes ?? 0}</span>   
     </div>
 };
 
@@ -134,6 +129,7 @@ const PostContent = ({subject, body, image, expandedView}: PostContentProps) => 
 
 const CommentSection = ({comments, onSubmit, signedIn}: CommentSectionProps) => {
     const [newComment, setNewComment] = useState("")
+    
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (!newComment.trim()) return
@@ -214,8 +210,6 @@ const PostCard = ({post, showSubreddit=false, expandedView=false}: PostCardProps
         })
 
     }
-
-    const handleSubmit = (content: string) => {}
 
     return (
     <div className={`post-card ${expandedView ? "expanded" : ""}`}>

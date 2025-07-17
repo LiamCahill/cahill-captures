@@ -1,6 +1,5 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
-import { describe } from "node:test";
 
 export default defineSchema({
     users: defineTable({

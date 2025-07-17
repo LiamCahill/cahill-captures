@@ -1,11 +1,11 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import {api} from "../../convex/_generated/api"
 import { useQuery } from "convex/react";
 import "../styles/SearchBar.css"
 
-interface SearchResults {
+interface SearchResult {
     _id: string
     type: string
     title: string
@@ -23,13 +23,16 @@ const SearchBar = () => {
     
     const [searchQuery, setSearchQuery] = useState("")
     const [isActive, setIsActive] = useState(false)
-    let results: SearchResults[] = []
-    
-    if(!currentSubreddit) {
-        results = useQuery(api.subreddit.search, {queryStr: searchQuery}) as SearchResult[];
-    } else {
-        results = useQuery(api.post.search, {queryStr: searchQuery, subreddit: currentSubreddit}) as SearchResult
-    }
+
+    // perform the search query
+    const subredditSearch = useQuery(api.subreddit.search, currentSubreddit ? "skip" : {
+        queryStr: searchQuery,
+    });
+    const postSearch = useQuery(api.post.search, currentSubreddit ? {
+        queryStr: searchQuery,
+        subreddit: currentSubreddit,
+      } : "skip");
+      const results = currentSubreddit ? postSearch : subredditSearch;
 
     const handleFocus = () => {
         setIsActive(true)

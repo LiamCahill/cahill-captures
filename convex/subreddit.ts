@@ -1,4 +1,3 @@
-import { describe } from "node:test"
 import {mutation, query} from "./_generated/server"
 import { getCurrentUserOrThrow } from "./users"
 import {ConvexError, v} from "convex/values"

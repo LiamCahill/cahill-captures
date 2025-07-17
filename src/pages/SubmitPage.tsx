@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import {api} from "../../convex/_generated/api"
 import { FaImage } from "react-icons/fa";
-import {IoMdClose, IoMdReturnLeft} from "react-icons/io"
+import {IoMdClose} from "react-icons/io"
 
 const SubmitPage = () => {
   const {subredditName} = useParams()
@@ -32,7 +32,7 @@ const SubmitPage = () => {
   const createPost = useMutation(api.post.create)
   const generateUploadUrl = useMutation(api.image.generateUploadUrl)
 
-  const handleImageSelect = (e: React.ChangeEvent<HTLMLInputElement>) => {
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if(file) {
       if(file.size > 5 * 1024 * 1024) {
