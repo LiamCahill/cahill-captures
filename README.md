@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+# Cahill Captures
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Reddit-like application built with React, Convex, and Clerk authentication.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Install dependencies:
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Set up environment variables:
+   - Copy `env.example` to `.env.local`
+   - Fill in your Convex and Clerk credentials
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+3. Start the development server:
+```bash
+npm run dev
 ```
+
+## Deployment to Vercel
+
+### Prerequisites
+1. Create a Vercel account
+2. Set up your Convex deployment
+3. Configure Clerk for production
+
+### Environment Variables
+Set these environment variables in your Vercel project settings:
+
+- `VITE_CONVEX_URL`: Your Convex deployment URL
+- `VITE_CLERK_PUBLISHABLE_KEY`: Your Clerk publishable key
+- `CLERK_JWT_ISSUER_DOMAIN`: Your Clerk JWT issuer domain (for Convex backend)
+- `CLERK_WEBHOOK_SECRET`: Your Clerk webhook secret (for Convex backend)
+
+### Deployment Steps
+1. Connect your GitHub repository to Vercel
+2. Vercel will automatically detect the Vite configuration
+3. The build will use the `vercel.json` configuration
+4. Deploy!
+
+### Clerk Configuration for Production
+1. In your Clerk dashboard, add your Vercel domain to allowed origins
+2. Update your Clerk application settings for production
+3. Ensure webhooks are configured for your production domain
+
+## Features
+- User authentication with Clerk
+- Real-time data with Convex
+- Reddit-style post and comment system
+- Image upload support
+- Search functionality
+- User profiles and subreddits
