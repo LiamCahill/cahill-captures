@@ -67,39 +67,61 @@ const SearchBar = () => {
         }
     };
 
-    return <div className="search-wrapper">
-        <div className="search-container">
-            <FaSearch className="search-icon"/>
-            <input type="text" className="search-input" placeholder={currentSubreddit ? `Search /r/${currentSubreddit}` : "Search for a community"}
-            value={searchQuery}
-            onChange={handleSearch}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
+    return (
+        <div className="search-wrapper">
+          <div className="search-container">
+            <FaSearch className="search-icon" />
+            <input
+              type="text"
+              className="search-input"
+              placeholder={
+                currentSubreddit
+                  ? `Search r/${currentSubreddit}`
+                  : "Search for a community"
+              }
+              value={searchQuery}
+              onChange={handleSearch}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
-            currentSubreddit && <div className="search-scope">
+            {currentSubreddit && (
+              <div className="search-scope">
                 <span>in r/{currentSubreddit}</span>
-            </div>
-        </div>
-
-        {isActive && <div className="search-results">
-            {searchQuery === "" ? <div className="empty-state">
-                <p>Search for a post here...</p>
-            </div> : results && results.length > 0 ? <ul className="results-list">
-                {results.map((result) => <li key ={result._id} className="result-item" onClick={() => handleResultClick(result)}>
-                    <span className="result-icon">
+              </div>
+            )}
+          </div>
+          {isActive && (
+            <div className="search-results">
+              {searchQuery === "" ? (
+                <div className="empty-state">
+                  <p>Try searching for posts or communities.</p>
+                </div>
+              ) : results && results.length > 0 ? (
+                <ul className="results-list">
+                  {results.map((result) => (
+                    <li
+                      key={result._id}
+                      className="result-item"
+                      onClick={() => handleResultClick(result)}
+                    >
+                      <span className="result-icon">
                         {getIconForType(result.type)}
-                    </span>
-                    <div className="result-container">
-                        <span className="result-title">
-                            {result.title}
-                        </span>
-                    </div>
-                </li>)}
-            </ul> : <div className="empyt-state">
-                <p>No results found.</p>
-                </div>}
-            </div>}
-    </div>
-}
-
-export default SearchBar;
+                      </span>
+                      <div className="result-container">
+                        <span className="result-title">{result.title}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="empty-state">
+                  <p>No results found.</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      );
+    };
+    
+    export default SearchBar;
