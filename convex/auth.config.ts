@@ -1,7 +1,7 @@
 export default {
     providers: [
       {
-        domain: "https://clerk.cahillcaptures.space",
+        domain: "https://noted-ape-28.clerk.accounts.dev",
         applicationID: "convex",
       },
     ]
