@@ -7,8 +7,7 @@ import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ConvexReactClient } from "convex/react";
 
 const convexUrl = import.meta.env.VITE_CONVEX_URL;
-//const clerkPublishableKey = "pk_live_Y2xlcmsuY2FoaWxsY2FwdHVyZXMuc3BhY2Uk";
-const clerkPublishableKey = "pk_test_bm90ZWQtYXBlLTI4LmNsZXJrLmFjY291bnRzLmRldiQ";
+const clerkPublishableKey = "pk_live_Y2xlcmsuY2FoaWxsY2FwdHVyZXMuc3BhY2Uk";
 
 if (!convexUrl) {
   console.error("VITE_CONVEX_URL environment variable is not set");
