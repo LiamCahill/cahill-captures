@@ -10,21 +10,26 @@ http.route({
   path: "/clerk-users-webhook",
   method: "POST",
   handler: httpAction(async (ctx, request) => {
+    console.log("Webhook received at /clerk-users-webhook");
     const event = await validateRequest(request);
     if (!event) {
+      console.error("Webhook validation failed");
       return new Response("Error occured", { status: 400 });
     }
+    console.log(`Processing webhook event: ${event.type} for user: ${event.data.id}`);
     switch (event.type) {
       case "user.created": // intentional fallthrough
       case "user.updated":
         await ctx.runMutation(internal.users.upsertFromClerk, {
           data: event.data,
         });
+        console.log(`Successfully processed ${event.type} for user: ${event.data.id}`);
         break;
 
       case "user.deleted": {
         const clerkUserId = event.data.id!;
         await ctx.runMutation(internal.users.deleteFromClerk, { clerkUserId });
+        console.log(`Successfully deleted user: ${clerkUserId}`);
         break;
       }
       default:

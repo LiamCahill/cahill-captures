@@ -1,4 +1,4 @@
-import { internalMutation, query, QueryCtx } from "./_generated/server";
+import { internalMutation, mutation, query, QueryCtx } from "./_generated/server";
 import { UserJSON } from "@clerk/backend";
 import { v, Validator, ConvexError } from "convex/values";
 import { counts, postCountKey } from "./counter";
@@ -43,9 +43,15 @@ export const deleteFromClerk = internalMutation({
 });
 
 export async function getCurrentUserOrThrow(ctx: QueryCtx) {
+  const identity = await ctx.auth.getUserIdentity();
+  if (identity === null) {
+    throw new ConvexError({message: "You must be signed in to perform this action."});
+  }
   const userRecord = await getCurrentUser(ctx);
   if (!userRecord) {
-    throw new ConvexError({message: "You must be signed in to perform this action."});
+    throw new ConvexError({
+      message: "Your user account hasn't been synced yet. Please try signing out and signing back in, or contact support if the issue persists."
+    });
   } 
   return userRecord;
 }
@@ -55,7 +61,11 @@ export async function getCurrentUser(ctx: QueryCtx) {
   if (identity === null) {
     return null;
   }
-  return await userByExternalId(ctx, identity.subject);
+  const user = await userByExternalId(ctx, identity.subject);
+  if (!user) {
+    console.warn(`User not found in database for Clerk ID: ${identity.subject}. Webhook may not have run yet.`);
+  }
+  return user;
 }
 
 async function userByExternalId(ctx: QueryCtx, externalId: string) {
@@ -77,3 +87,28 @@ export const getPublicUser = query({
      }
   },
 })
+
+// Manual sync mutation for debugging/recovery
+export const syncCurrentUser = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError({message: "Not authenticated"});
+    }
+    
+    // Check if user already exists
+    const existingUser = await userByExternalId(ctx, identity.subject);
+    if (existingUser) {
+      return {message: "User already exists", userId: existingUser._id};
+    }
+    
+    // Create user record manually
+    const userId = await ctx.db.insert("users", {
+      username: identity.name || identity.email || "",
+      externalId: identity.subject,
+    });
+    
+    return {message: "User created", userId};
+  },
+});
