@@ -45,8 +45,13 @@ const CreateCommunityModal = ({isOpen, onClose}: CreateCommunityModalProps) => {
         .then((result) => {
             console.log(result)
             onClose()
-        }).catch((err) => {
-            setError(`Failed to create community. ${err.data.message}`)
+        }).catch((err: any) => {
+            const message =
+            err?.data?.message ??
+            err?.message ??
+            "An unknown error occurred."
+            
+            setError(`Failed to create community. ${message}`)
         }).finally(() => setIsLoading(false));
     }
 
