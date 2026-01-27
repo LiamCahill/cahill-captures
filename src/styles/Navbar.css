@@ -45,10 +45,10 @@
   opacity: 0.8;
 }
 
-.reddit-icon {
+.logo-icon {
   width: 32px;
   height: 32px;
-  color: #FF4500;
+  object-fit: contain;
 }
 
 .site-name {

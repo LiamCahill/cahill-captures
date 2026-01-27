@@ -1,4 +1,4 @@
-import { FaPlus, FaReddit, FaUser } from "react-icons/fa";
+import { FaPlus, FaUser } from "react-icons/fa";
 import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 import { Authenticated, Unauthenticated } from "convex/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="navbar-content">
         <Link to="/" className="logo-link">
           <div className="logo-container">
-            <FaReddit className="reddit-icon" />
+            <img src="/cahill-captures.png" alt="Cahill Captures" className="logo-icon" />
             <span className="site-name">Cahill Captures</span>
           </div>
         </Link>
