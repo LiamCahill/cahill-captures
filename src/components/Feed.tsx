@@ -9,9 +9,6 @@ export function Feed() {
     if (!topPosts) {
         return <div className="content-grid">Loading...</div>
     }
-//          {topPosts.map((post) => (
-//    <PostCard key={post._id} post={post} showSubreddit={true} />
-// ))}
     return (
         <div className="content-grid">
             <div className="feed-container">

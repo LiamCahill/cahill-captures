@@ -78,16 +78,14 @@ const PostHeader = ({author, subreddit, showSubreddit, creationTime}: PostHeader
     return (
     <div className="post-header">
         {author ? (
-            <Link to={`/u/${author.username}`}>u{author?.username}</Link>
+            <Link to={`/u/${author.username}`}>u/{author?.username}</Link>
          ) : (
          <span className="post-author">u/deleted</span>
         )}
         {showSubreddit && subreddit && (
             <> 
             <span className="post-dot">-</span>
-            <Link to={`/r/${subreddit.name}`} className="post-subreddit">
-                r/{subreddit.name}
-            </Link> 
+            <Link to={`/r/${subreddit.name}`} className="post-subreddit">r/{subreddit.name}</Link>
         </>
         )}
         <span className="post-dot">-</span>
