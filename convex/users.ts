@@ -1,4 +1,4 @@
-import { internalMutation, mutation, query, QueryCtx } from "./_generated/server";
+import { internalMutation, mutation, query, QueryCtx, MutationCtx } from "./_generated/server";
 import { UserJSON } from "@clerk/backend";
 import { v, Validator, ConvexError } from "convex/values";
 import { counts, postCountKey } from "./counter";
@@ -42,6 +42,7 @@ export const deleteFromClerk = internalMutation({
   },
 });
 
+// For queries - throws error if user doesn't exist
 export async function getCurrentUserOrThrow(ctx: QueryCtx) {
   const identity = await ctx.auth.getUserIdentity();
   if (identity === null) {
@@ -53,6 +54,32 @@ export async function getCurrentUserOrThrow(ctx: QueryCtx) {
       message: "Your user account hasn't been synced yet. Please try signing out and signing back in, or contact support if the issue persists."
     });
   } 
+  return userRecord;
+}
+
+// For mutations - auto-creates user if authenticated but missing from database
+export async function getCurrentUserOrCreate(ctx: MutationCtx) {
+  const identity = await ctx.auth.getUserIdentity();
+  if (identity === null) {
+    throw new ConvexError({message: "You must be signed in to perform this action."});
+  }
+  
+  let userRecord = await userByExternalId(ctx, identity.subject);
+  
+  // Auto-create user if they're authenticated but don't exist in DB
+  // This handles cases where webhooks haven't run yet
+  if (!userRecord) {
+    console.log(`Auto-creating user for Clerk ID: ${identity.subject}`);
+    const userId = await ctx.db.insert("users", {
+      username: identity.name || identity.email || identity.nickname || "",
+      externalId: identity.subject,
+    });
+    userRecord = await ctx.db.get(userId);
+    if (!userRecord) {
+      throw new ConvexError({message: "Failed to create user record."});
+    }
+  }
+  
   return userRecord;
 }
 

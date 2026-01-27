@@ -1,6 +1,6 @@
 import {mutation, query} from "./_generated/server"
 import {v} from "convex/values"
-import { getCurrentUser, getCurrentUserOrThrow } from "./users"
+import { getCurrentUser, getCurrentUserOrCreate } from "./users"
 import {counts} from "./counter"
 
 type VoteType = "upvote" | "downvote"
@@ -13,7 +13,7 @@ export function createToggleVoteMutation(voteType: VoteType){
     return mutation({
         args: {postId: v.id("post")},
         handler: async (ctx, args) => {
-            const user = await getCurrentUserOrThrow(ctx)
+            const user = await getCurrentUserOrCreate(ctx)
             const oppositeVoteType : VoteType = voteType === "upvote" ? "downvote" : "upvote"
 
             const existingVote = await ctx.db

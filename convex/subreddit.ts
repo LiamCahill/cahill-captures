@@ -1,5 +1,5 @@
 import {mutation, query} from "./_generated/server"
-import { getCurrentUserOrThrow } from "./users"
+import { getCurrentUserOrCreate } from "./users"
 import {ConvexError, v} from "convex/values"
 import { getEnrichedPosts } from "./post"
 
@@ -10,7 +10,7 @@ export const create = mutation({
 
     },
     handler: async (ctx, args) => {
-        const user = await getCurrentUserOrThrow(ctx) //we only want a user who is signed in to have the ability to create a subreddit
+        const user = await getCurrentUserOrCreate(ctx) //we only want a user who is signed in to have the ability to create a subreddit
         const subreddit = await ctx.db.query("subreddit").collect()
         if(subreddit.some((s) => s.name === args.name)) {
             throw new ConvexError({message: "Subreddit already exists."})

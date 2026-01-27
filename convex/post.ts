@@ -1,6 +1,6 @@
 import {mutation, query, QueryCtx} from "./_generated/server"
 import {ConvexError, v} from "convex/values"
-import { getCurrentUserOrThrow } from "./users"
+import { getCurrentUserOrCreate } from "./users"
 import {Doc, Id} from "./_generated/dataModel"
 import {counts, postCountKey} from "./counter"
 
@@ -30,7 +30,7 @@ export const create = mutation({
 
     },
     handler: async (ctx, args) => {
-        const user = await getCurrentUserOrThrow(ctx)
+        const user = await getCurrentUserOrCreate(ctx)
         const postId = await ctx.db.insert("post", {
             subject: args.subject,
             body: args.body,
@@ -126,7 +126,7 @@ export const deletePost = mutation({
         const post = await ctx.db.get(args.id);
         if(!post) throw new ConvexError({message: ERROR_MESSAGE.POST_NOT_FOUND})
 
-        const user = await getCurrentUserOrThrow(ctx)
+        const user = await getCurrentUserOrCreate(ctx)
         if(post.authorId != user._id){
             throw new ConvexError({message: ERROR_MESSAGE.UNAUTHORIZED_DELETE})
         }

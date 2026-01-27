@@ -1,6 +1,6 @@
 import {mutation, query} from "./_generated/server"
 import {v} from "convex/values"
-import { getCurrentUserOrThrow } from "./users"
+import { getCurrentUserOrCreate } from "./users"
 import {counts, commentCountKey} from "./counter"
 
 export const create = mutation({
@@ -8,7 +8,7 @@ export const create = mutation({
         content: v.string(),
         postId: v.id("post")
     }, handler: async (ctx, args) => {
-        const user = await getCurrentUserOrThrow(ctx)
+        const user = await getCurrentUserOrCreate(ctx)
         await ctx.db.insert("comments", {
             content: args.content,
             postId: args.postId,
