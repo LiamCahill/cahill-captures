@@ -26,8 +26,7 @@ export const getComments = query({
         .withIndex("byPost", (q) => q.eq("postId", args.postId))
         .collect();
         
-        // we are using a set below because it will not allow/automatically remove duplicates in 
-        // the case where a use commented multiple times on a post.
+        // using a set below to automatically remove duplicates when one author comments multiple times on a post
         const authorIds = [...new Set(comments.map((comment) => comment.authorId))]
         const authors = await Promise.all(
             authorIds.map((id) => ctx.db.get(id))

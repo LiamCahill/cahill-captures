@@ -1,5 +1,6 @@
 import { FaRegCommentAlt, FaTrash } from "react-icons/fa";
-import { TbArrowBigUp, TbArrowBigDown } from "react-icons/tb";
+import upvoteSvg from "../assets/my-upvote.svg";
+import downvoteSvg from "../assets/my-downvote.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -62,13 +63,15 @@ const VoteButtons = ({voteCounts, hasUpvoted, hasDownvoted, onUpvote, onDownvote
     return <div className="post-votes">
         <span className="vote-count upvote-count">{voteCounts?.upvotes ?? 0}</span>
         <button className={`vote-button ${hasUpvoted ? "voted" : ""}`} onClick={onUpvote}>
-            <TbArrowBigUp size={24} />
+            <img src={upvoteSvg} alt="Upvote" className="vote-icon"/>
+            {/*<TbArrowBigUp size={24} />*/}
         </button>
 
         <span className="vote-count total-count">{voteCounts?.total ?? 0}</span>
 
         <button className={`vote-button ${hasDownvoted ? "voted" : ""}`} onClick={onDownvote}>
-            <TbArrowBigDown size={24} />
+            <img src={downvoteSvg} alt="Downvote" className="vote-icon"/>
+            {/*<TbArrowBigDown size={24} />*/}
         </button>
         <span className="vote-count downvote-count">{voteCounts?.downvotes ?? 0}</span>   
     </div>
