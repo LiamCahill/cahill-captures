@@ -17,10 +17,6 @@ const SearchBar = () => {
     const navigate = useNavigate()
     const subredditMatch = location.pathname.match(/^\/r\/([^/]+)/);
     const currentSubreddit = subredditMatch ? subredditMatch[1] : null;
-
-    
-    
-    
     const [searchQuery, setSearchQuery] = useState("")
     const [isActive, setIsActive] = useState(false)
 
@@ -59,7 +55,7 @@ const SearchBar = () => {
     const getIconForType = (type: string) => {
         switch (type) {
             case "community":
-                return "🌐";
+                return "🧑‍🧑‍🧒";
             case "post":
                 return "📝";
             default:
