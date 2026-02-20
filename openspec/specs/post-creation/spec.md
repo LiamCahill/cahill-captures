@@ -1,5 +1,8 @@
-## MODIFIED Requirements
+# post-creation Specification
 
+## Purpose
+TBD - created by archiving change add-location-to-postcard. Update Purpose after archive.
+## Requirements
 ### Requirement: Create post
 The system SHALL accept post creation requests including title, subreddit, content, images, and an optional location field.
 

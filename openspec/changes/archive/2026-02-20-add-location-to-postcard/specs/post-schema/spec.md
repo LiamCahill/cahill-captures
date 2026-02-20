@@ -1,4 +1,4 @@
-## MODIFIED Requirements
+## ADDED Requirements
 
 ### Requirement: Post data model
 The system SHALL store posts with the following fields: id, title, subreddit, content, images, createdAt, author, votes, and an optional location field.
