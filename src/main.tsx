@@ -5,16 +5,10 @@ import "./index.css";
 import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ConvexReactClient } from "convex/react";
-import faviconUrl from "./assets/cahill-captures.png";
 
 const convexUrl = import.meta.env.VITE_CONVEX_URL;
 const clerkPublishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
-// Set favicon
-const favicon = document.querySelector("link[rel='icon']") as HTMLLinkElement;
-if (favicon) {
-  favicon.href = faviconUrl;
-}
 
 if (!convexUrl) {
   console.error("VITE_CONVEX_URL environment variable is not set");
