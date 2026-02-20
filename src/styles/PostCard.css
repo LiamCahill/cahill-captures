@@ -103,6 +103,11 @@
   color: #787c7e;
 }
 
+.post-location {
+  color: #787c7e;
+  font-style: italic;
+}
+
 .post-title {
   font-size: 18px;
   font-weight: 500;

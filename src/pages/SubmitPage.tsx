@@ -25,6 +25,7 @@ const SubmitPage = () => {
 
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
+  const [location, setLocation] = useState("")
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -84,7 +85,8 @@ const SubmitPage = () => {
         subject: title.trim(),
         body: body.trim(),
         subreddit: subreddit._id,
-        storageId: imageUrl
+        storageId: imageUrl,
+        location: location.trim() || undefined
       })
       navigate(`/r/${subredditName}`)
       
@@ -144,6 +146,14 @@ const SubmitPage = () => {
           value={body} 
           onChange={(e) => setBody(e.target.value)}
           className="submit-body"
+          />
+          <input
+          type="text"
+          placeholder="Location (Optional)"
+          value={location}
+          onChange={(e) => {setLocation(e.target.value)}}
+          className="submit-location"
+          maxLength={100}
           />
         <div className="submit-actions">
           <button 

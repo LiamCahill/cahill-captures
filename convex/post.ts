@@ -27,7 +27,7 @@ export const create = mutation({
         body: v.string(),
         subreddit: v.id("subreddit"),
         storageId: v.optional(v.id("_storage")),
-
+        location: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
         const user = await getCurrentUserOrCreate(ctx)
@@ -36,7 +36,8 @@ export const create = mutation({
             body: args.body,
             subreddit: args.subreddit,
             authorId: user._id,
-            image: args.storageId || undefined
+            image: args.storageId || undefined,
+            location: args.location || undefined
         });
         await counts.inc(ctx, postCountKey(user._id))
         return postId

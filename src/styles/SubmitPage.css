@@ -137,6 +137,26 @@
   color: #878a8c;
 }
 
+.submit-location {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #edeff1;
+  border-radius: 4px;
+  background-color: white;
+  color: #1c1c1c;
+  transition: border-color 0.2s;
+}
+
+.submit-location:focus {
+  border-color: #0079d3;
+  outline: none;
+}
+
+.submit-location::placeholder {
+  color: #878a8c;
+}
+
 .submit-actions {
   display: flex;
   gap: 10px;

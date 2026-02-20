@@ -18,7 +18,8 @@ export default defineSchema({
         body: v.string(),
         subreddit: v.id("subreddit"),
         authorId: v.id("users"),
-        image: v.optional(v.id("_storage")) //optional, will be handled later
+        image: v.optional(v.id("_storage")), //optional, will be handled later
+        location: v.optional(v.string()) //optional location field for posts
     })
     .index("bySubreddit", ["subreddit"])
     .index("byAuthor", ["authorId"])

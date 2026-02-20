@@ -14,6 +14,7 @@ interface Post {
   _id: Id<"post">;
   subject: string;
   body: string;
+  location?: string;
   _creationTime: number;
   authorId: string;
   imageUrl?: string;
@@ -35,6 +36,7 @@ interface PostHeaderProps {
     subreddit: {name: string}
     showSubreddit: boolean
     creationTime: number
+    location?: string
 }
 
 interface PostContentProps {
@@ -77,7 +79,7 @@ const VoteButtons = ({voteCounts, hasUpvoted, hasDownvoted, onUpvote, onDownvote
     </div>
 };
 
-const PostHeader = ({author, subreddit, showSubreddit, creationTime}: PostHeaderProps) => {
+const PostHeader = ({author, subreddit, showSubreddit, creationTime, location}: PostHeaderProps) => {
     return (
     <div className="post-header">
         {author ? (
@@ -95,6 +97,12 @@ const PostHeader = ({author, subreddit, showSubreddit, creationTime}: PostHeader
         <span className="post-timestamp">
             {new Date(creationTime).toLocaleString()}
         </span>
+        {location && (
+            <>
+            <span className="post-dot">-</span>
+            <span className="post-location">{location}</span>
+            </>
+        )}
     </div>
     );
 }
@@ -226,9 +234,11 @@ const PostCard = ({post, showSubreddit=false, expandedView=false}: PostCardProps
             author={post.author} 
             subreddit={post.subreddit?? {name: "deleted"}} 
             showSubreddit={showSubreddit} 
-            creationTime={post._creationTime}/>
-            <PostContent 
-            subject={post.subject} 
+            creationTime={post._creationTime}
+            location={post.location}
+            />
+            <PostContent
+            subject={post.subject}
             body={post.body} 
             image={post.imageUrl} 
             expandedView={expandedView}
