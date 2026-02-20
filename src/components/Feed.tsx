@@ -1,7 +1,22 @@
-import { useQuery } from "convex/react";
+import { useQuery, Authenticated } from "convex/react";
+import { useUser } from "@clerk/clerk-react";
+import { Link } from "react-router-dom";
 import {api} from "../../convex/_generated/api"
 import PostCard from "./PostCard";
 import "../styles/Feed.css"
+
+function ProfileWidget() {
+    const { user } = useUser();
+    if (!user?.username) return null;
+    return (
+        <div className="profile-widget">
+            <p className="profile-widget-name">u/{user.username}</p>
+            <Link to={`/u/${user.username}`} className="profile-widget-link">
+                View Profile
+            </Link>
+        </div>
+    );
+}
 
 export function Feed() {
     const topPosts = useQuery(api.leaderboard.getTopPosts, {limit: 10})
@@ -11,16 +26,17 @@ export function Feed() {
     }
     return (
         <div className="content-grid">
+            <Authenticated>
+                <ProfileWidget />
+            </Authenticated>
             <div className="feed-container">
                 <h2 className="section-title">Trending Today</h2>
                 <div className="post-list">
                     {topPosts.map((post) => (
                         <PostCard key={post._id} post={post} showSubreddit={true} />
                     ))}
-
-                
+                </div>
             </div>
         </div>
-    </div>
     );
 }
