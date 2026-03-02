@@ -71,7 +71,7 @@ export async function getCurrentUserOrCreate(ctx: MutationCtx) {
   if (!userRecord) {
     console.log(`Auto-creating user for Clerk ID: ${identity.subject}`);
     const userId = await ctx.db.insert("users", {
-      username: identity.name || identity.email || identity.nickname || "",
+      username: identity.name || identity.nickname || "",
       externalId: identity.subject,
     });
     userRecord = await ctx.db.get(userId);
@@ -118,8 +118,9 @@ export const getPublicUser = query({
 export const getNewestUsers = query({
   args: {},
   handler: async (ctx) => {
-    const users = await ctx.db.query("users").order("desc").take(5)
-    return users.map(u => ({ username: u.username }))
+    const candidates = await ctx.db.query("users").order("desc").take(15)
+    const valid = candidates.filter(u => u.username && !u.username.includes("@"))
+    return valid.slice(0, 5).map(u => ({ username: u.username }))
   }
 })
 
