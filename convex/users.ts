@@ -115,6 +115,14 @@ export const getPublicUser = query({
   },
 })
 
+export const getNewestUsers = query({
+  args: {},
+  handler: async (ctx) => {
+    const users = await ctx.db.query("users").order("desc").take(5)
+    return users.map(u => ({ username: u.username }))
+  }
+})
+
 // Manual sync mutation for debugging/recovery
 export const syncCurrentUser = mutation({
   args: {},
