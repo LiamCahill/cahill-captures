@@ -6,7 +6,6 @@ A private family blog and social network — a calm, happy alternative to modern
 
 ---
 
-[![CI](https://github.com/LiamCahill/cahill-captures/actions/workflows/ci.yml/badge.svg)](https://github.com/LiamCahill/cahill-captures/actions/workflows/ci.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/LiamCahill/cahill-captures)](https://github.com/LiamCahill/cahill-captures/commits/main)
 [![Vercel Deploy](https://img.shields.io/github/deployments/LiamCahill/cahill-captures/Production?logo=vercel&label=vercel)](https://cahillcaptures.space)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev)
