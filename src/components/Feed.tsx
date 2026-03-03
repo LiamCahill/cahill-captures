@@ -31,7 +31,7 @@ export function Feed() {
             <div className="homepage-main">
                 <div className="feed-container">
                     <h2 className="section-title">Trending Today</h2>
-                    <div className="post-list">
+                    <div className="posts-list">
                         {topPosts.map((post) => (
                             <PostCard key={post._id} post={post} showSubreddit={true} />
                         ))}
