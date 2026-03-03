@@ -13,7 +13,6 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.31.9",
     "@convex-dev/sharded-counter": "^0.1.8",
-    "@vercel/analytics": "^1.6.1",
     "convex": "^1.24.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
