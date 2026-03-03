@@ -1,5 +1,5 @@
 import "../styles/SubmitPage.css";
-import { useNavigate, useParams } from "react-router-dom"; //how we get the subreddit
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import {api} from "../../convex/_generated/api"
@@ -7,17 +7,17 @@ import { FaImage } from "react-icons/fa";
 import {IoMdClose} from "react-icons/io"
 
 const SubmitPage = () => {
-  const {subredditName} = useParams()
+  const {spaceName} = useParams()
   const navigate = useNavigate()
-  const subreddit = useQuery(api.subreddit.get, {name: subredditName || ""})
+  const space = useQuery(api.space.get, {name: spaceName || ""})
 
-  if(subreddit === undefined) return <p>Loading...</p>
+  if(space === undefined) return <p>Loading...</p>
 
-  if (!subreddit) {
+  if (!space) {
     return <div className="content-container">
       <div className="not-found">
-        <h1>Subreddit not found</h1>
-        <p>The subreddit r/{subredditName} does not exist. (Try creating it!)</p>
+        <h1>Space not found</h1>
+        <p>The space c/{spaceName} does not exist. (Try creating it!)</p>
       </div>
     </div>
   }
@@ -57,8 +57,8 @@ const SubmitPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if(!title.trim() || !subreddit) {
-      alert("Please enter a title and select a subreddit")
+    if(!title.trim() || !space) {
+      alert("Please enter a title and select a space")
       return
     }
 
@@ -84,11 +84,11 @@ const SubmitPage = () => {
       await createPost({
         subject: title.trim(),
         body: body.trim(),
-        subreddit: subreddit._id,
+        space: space._id,
         storageId: imageUrl,
         location: location.trim() || undefined
       })
-      navigate(`/r/${subredditName}`)
+      navigate(`/c/${spaceName}`)
       
     } catch (error) {
       alert("Failed to create post. Please try again.")
@@ -103,7 +103,7 @@ const SubmitPage = () => {
 
     return <div className="content-container">
       <div className="submit-container">
-        <h1>Create a post in r/{subredditName}</h1>
+        <h1>Create a post in c/{spaceName}</h1>
         <form className="submit-form" onSubmit={handleSubmit}>
           <input 
           type="text" 
@@ -158,7 +158,7 @@ const SubmitPage = () => {
         <div className="submit-actions">
           <button 
           type="button" 
-          onClick={() => navigate(`/r/${subredditName}`)}
+          onClick={() => navigate(`/c/${spaceName}`)}
           className="back-button"
           disabled={isSubmitting}
           >

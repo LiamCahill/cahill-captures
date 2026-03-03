@@ -10,12 +10,12 @@ export const create = mutation({
 
     },
     handler: async (ctx, args) => {
-        const user = await getCurrentUserOrCreate(ctx) //we only want a user who is signed in to have the ability to create a subreddit
-        const subreddit = await ctx.db.query("subreddit").collect()
-        if(subreddit.some((s) => s.name === args.name)) {
-            throw new ConvexError({message: "Subreddit already exists."})
+        const user = await getCurrentUserOrCreate(ctx)
+        const spaces = await ctx.db.query("space").collect()
+        if(spaces.some((s) => s.name === args.name)) {
+            throw new ConvexError({message: "Space already exists."})
         }
-        await ctx.db.insert("subreddit", {
+        await ctx.db.insert("space", {
             name: args.name,
             description: args.description,
             authorId: user._id
@@ -26,21 +26,20 @@ export const create = mutation({
 export const get = query({
     args: {name: v.string()},
     handler: async(ctx, args) => {
-        const subreddit = await ctx.db
-        .query("subreddit")
+        const space = await ctx.db
+        .query("space")
         .filter((q) => q.eq(q.field("name"), args.name))
         .unique();
-        if(!subreddit) return null
+        if(!space) return null
 
-        //get all the posts for the current subreddit
         const posts = await ctx.db
         .query("post")
-        .withIndex("bySubreddit", (q) => q.eq("subreddit", subreddit._id))
+        .withIndex("bySpace", (q) => q.eq("space", space._id))
         .collect();
 
         const enrichedPosts = await getEnrichedPosts(ctx, posts)
 
-        return {...subreddit, posts: enrichedPosts};
+        return {...space, posts: enrichedPosts};
     }
 })
 
@@ -49,11 +48,11 @@ export const search = query({
     handler: async (ctx, args) => {
         if (!args.queryStr) return []
 
-        const subreddits = await ctx.db.query("subreddit").withSearchIndex("search_body", (q) => q.search("name", args.queryStr))
+        const spaces = await ctx.db.query("space").withSearchIndex("search_body", (q) => q.search("name", args.queryStr))
         .take(10);
 
-        return subreddits.map((sub) => {
-            return {...sub, type: "community", title: sub.name}
+        return spaces.map((space) => {
+            return {...space, type: "community", title: space.name}
         })
     }
 })

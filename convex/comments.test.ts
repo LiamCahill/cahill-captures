@@ -5,7 +5,7 @@ import schema from "./schema";
 
 const modules = import.meta.glob("./**/*.ts");
 
-// Set up a user, subreddit, and post directly via t.run() to avoid
+// Set up a user, space, and post directly via t.run() to avoid
 // counter side effects, then insert comments the same way so getComments
 // can be tested in isolation.
 async function setupFixture(t: ReturnType<typeof convexTest>) {
@@ -14,14 +14,14 @@ async function setupFixture(t: ReturnType<typeof convexTest>) {
       username: "dave",
       externalId: "user_dave",
     });
-    const subId = await ctx.db.insert("subreddit", {
+    const subId = await ctx.db.insert("space", {
       name: "davescommunity",
       authorId: userId,
     });
     const postId = await ctx.db.insert("post", {
       subject: "A post",
       body: "Post body",
-      subreddit: subId,
+      space: subId,
       authorId: userId,
     });
     return { userId, postId };

@@ -11,14 +11,14 @@ async function setupFixture(t: ReturnType<typeof convexTest>) {
       username: "eve",
       externalId: "user_eve",
     });
-    const subId = await ctx.db.insert("subreddit", {
+    const subId = await ctx.db.insert("space", {
       name: "evescommunity",
       authorId: userId,
     });
     const postId = await ctx.db.insert("post", {
       subject: "My first post",
       body: "Hello everyone",
-      subreddit: subId,
+      space: subId,
       authorId: userId,
     });
     return { userId, subId, postId };
@@ -34,13 +34,13 @@ test("getPost returns enriched post with author.username", async () => {
   expect(post?.author?.username).toBe("eve");
 });
 
-test("getPost returns enriched post with subreddit.name and subreddit._id", async () => {
+test("getPost returns enriched post with space.name and space._id", async () => {
   const t = convexTest(schema, modules);
   const { postId, subId } = await setupFixture(t);
 
   const post = await t.query(api.post.getPost, { id: postId });
-  expect(post?.subreddit?.name).toBe("evescommunity");
-  expect(post?.subreddit?._id).toBe(subId);
+  expect(post?.space?.name).toBe("evescommunity");
+  expect(post?.space?._id).toBe(subId);
 });
 
 test("getPost returns null for a non-existent post ID", async () => {
@@ -52,14 +52,14 @@ test("getPost returns null for a non-existent post ID", async () => {
       username: "temp",
       externalId: "temp",
     });
-    const subId = await ctx.db.insert("subreddit", {
+    const subId = await ctx.db.insert("space", {
       name: "temp",
       authorId: userId,
     });
     const id = await ctx.db.insert("post", {
       subject: "temp",
       body: "temp",
-      subreddit: subId,
+      space: subId,
       authorId: userId,
     });
     await ctx.db.delete(id);

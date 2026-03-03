@@ -5,7 +5,7 @@ import schema from "./schema";
 
 const modules = import.meta.glob("./**/*.ts");
 
-// subreddit.create is used here because it calls getCurrentUserOrCreate
+// space.create is used here because it calls getCurrentUserOrCreate
 // without triggering any sharded counter operations, making it a clean
 // proxy for testing user creation behaviour.
 
@@ -14,7 +14,7 @@ test("getCurrentUserOrCreate auto-creates a user on first mutation", async () =>
 
   await t
     .withIdentity({ subject: "new_user_001", name: "Bob" })
-    .mutation(api.subreddit.create, { name: "bobscommunity" });
+    .mutation(api.space.create, { name: "bobscommunity" });
 
   const user = await t.run(async (ctx) =>
     ctx.db
@@ -33,10 +33,10 @@ test("getCurrentUserOrCreate returns existing user without creating a duplicate"
   // Call the mutation twice with the same identity
   await t
     .withIdentity(identity)
-    .mutation(api.subreddit.create, { name: "carolsworld" });
+    .mutation(api.space.create, { name: "carolsworld" });
   await t
     .withIdentity(identity)
-    .mutation(api.subreddit.create, { name: "carolsotherworld" });
+    .mutation(api.space.create, { name: "carolsotherworld" });
 
   const users = await t.run(async (ctx) =>
     ctx.db
@@ -51,6 +51,6 @@ test("mutation requiring auth throws when called unauthenticated", async () => {
   const t = convexTest(schema, modules);
 
   await expect(
-    t.mutation(api.subreddit.create, { name: "shouldfail" }),
+    t.mutation(api.space.create, { name: "shouldfail" }),
   ).rejects.toThrow();
 });

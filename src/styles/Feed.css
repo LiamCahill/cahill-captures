@@ -110,7 +110,7 @@
   margin: 0;
 }
 
-.top-subreddits-widget {
+.top-spaces-widget {
   background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -118,7 +118,7 @@
   padding: 14px 16px;
 }
 
-.top-subreddits-title {
+.top-spaces-title {
   font-size: 14px;
   font-weight: 700;
   color: #1a1a1b;
@@ -127,7 +127,7 @@
   letter-spacing: 0.04em;
 }
 
-.top-subreddits-list {
+.top-spaces-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -135,11 +135,11 @@
   flex-direction: column;
 }
 
-.top-subreddits-row {
+.top-spaces-row {
   border-top: 1px solid #f0f0f0;
 }
 
-.top-subreddits-link {
+.top-spaces-link {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -148,18 +148,18 @@
   border-radius: 2px;
 }
 
-.top-subreddits-link:hover {
+.top-spaces-link:hover {
   background: #f6f7f8;
 }
 
-.top-subreddits-rank {
+.top-spaces-rank {
   font-size: 13px;
   font-weight: 700;
   color: #818384;
   min-width: 18px;
 }
 
-.top-subreddits-name {
+.top-spaces-name {
   flex: 1;
   font-size: 14px;
   font-weight: 500;
@@ -169,7 +169,7 @@
   white-space: nowrap;
 }
 
-.top-subreddits-count {
+.top-spaces-count {
   font-size: 12px;
   color: #818384;
   white-space: nowrap;

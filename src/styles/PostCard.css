@@ -85,13 +85,13 @@
   margin-bottom: 8px;
 }
 
-.subreddit-link {
+.space-link {
   color: #1a1a1b;
   text-decoration: none;
   font-weight: 600;
 }
 
-.subreddit-link:hover {
+.space-link:hover {
   text-decoration: underline;
 }
 
@@ -206,13 +206,13 @@
   color: #787c7e;
 }
 
-.post-subreddit {
+.post-space {
   color: #0079d3;
   text-decoration: none;
   font-weight: 500;
 }
 
-.post-subreddit:hover {
+.post-space:hover {
   text-decoration: underline;
 }
 

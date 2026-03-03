@@ -1,5 +1,5 @@
 .profile-header,
-.subreddit-header {
+.space-header {
   background-color: white;
   padding: 24px;
   margin-bottom: 24px;
@@ -8,14 +8,14 @@
 }
 
 .profile-header h1,
-.subreddit-header h1 {
+.space-header h1 {
   margin: 0;
   font-size: 28px;
   color: #1c1c1c;
 }
 
 .profile-content,
-.subreddit-content {
+.space-content {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
@@ -23,7 +23,7 @@
 
 @media (min-width: 768px) {
   .profile-content,
-  .subreddit-content {
+  .space-content {
     grid-template-columns: 2fr 1fr;
   }
 }

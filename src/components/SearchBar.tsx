@@ -15,20 +15,20 @@ interface SearchResult {
 const SearchBar = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const subredditMatch = location.pathname.match(/^\/r\/([^/]+)/);
-    const currentSubreddit = subredditMatch ? subredditMatch[1] : null;
+    const spaceMatch = location.pathname.match(/^\/c\/([^/]+)/);
+    const currentSpace = spaceMatch ? spaceMatch[1] : null;
     const [searchQuery, setSearchQuery] = useState("")
     const [isActive, setIsActive] = useState(false)
 
     // perform the search query
-    const subredditSearch = useQuery(api.subreddit.search, currentSubreddit ? "skip" : {
+    const spaceSearch = useQuery(api.space.search, currentSpace ? "skip" : {
         queryStr: searchQuery,
     });
-    const postSearch = useQuery(api.post.search, currentSubreddit ? {
+    const postSearch = useQuery(api.post.search, currentSpace ? {
         queryStr: searchQuery,
-        subreddit: currentSubreddit,
+        space: currentSpace,
       } : "skip");
-      const results = currentSubreddit ? postSearch : subredditSearch;
+      const results = currentSpace ? postSearch : spaceSearch;
 
     const handleFocus = () => {
         setIsActive(true)
@@ -46,7 +46,7 @@ const SearchBar = () => {
         if(result.type === "post") {
             navigate(`/post/${result._id}`)
         } else {
-            navigate(`/r/${result.name}`)
+            navigate(`/c/${result.name}`)
         }
         setIsActive(false)
         setSearchQuery("")
@@ -71,8 +71,8 @@ const SearchBar = () => {
               type="text"
               className="search-input"
               placeholder={
-                currentSubreddit
-                  ? `Search r/${currentSubreddit}`
+                currentSpace
+                  ? `Search c/${currentSpace}`
                   : "Search for a community"
               }
               value={searchQuery}
@@ -80,9 +80,9 @@ const SearchBar = () => {
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
-            {currentSubreddit && (
+            {currentSpace && (
               <div className="search-scope">
-                <span>in r/{currentSubreddit}</span>
+                <span>in c/{currentSpace}</span>
               </div>
             )}
           </div>

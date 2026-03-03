@@ -13,14 +13,14 @@ const CreateDropdown = ({ isOpen, onClose }: CreateDropdownProps) => {
   const [isCommunityModalOpen, setIsCommunityModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const subredditMatch = location.pathname.match(/^\/r\/([^/]+)/);
-  const currentSubreddit = subredditMatch ? subredditMatch[1] : null;
+  const spaceMatch = location.pathname.match(/^\/c\/([^/]+)/);
+  const currentSpace = spaceMatch ? spaceMatch[1] : null;
 
   if (!isOpen) return null;
 
   const handleCreatePost = () => {
-    if (currentSubreddit) {
-      navigate(`/r/${currentSubreddit}/submit`);
+    if (currentSpace) {
+      navigate(`/c/${currentSpace}/submit`);
       onClose();
     }
   };
@@ -37,7 +37,7 @@ const CreateDropdown = ({ isOpen, onClose }: CreateDropdownProps) => {
           <h3>Create</h3>
         </div>
         <div className="dropdown-options">
-          {currentSubreddit && (
+          {currentSpace && (
             <button className="dropdown-option" onClick={handleCreatePost}>
               <div className="option-icon">
                 <FaAddressCard />
@@ -45,7 +45,7 @@ const CreateDropdown = ({ isOpen, onClose }: CreateDropdownProps) => {
               <div className="option-content">
                 <span className="option-title">Post</span>
                 <span className="option-description">
-                  Share to r/{currentSubreddit}
+                  Share to c/{currentSpace}
                 </span>
               </div>
             </button>

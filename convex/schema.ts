@@ -8,22 +8,22 @@ export default defineSchema({
     })
     .index("byExternalId", ["externalId"])
     .index("byUsername", ["username"]),
-    subreddit: defineTable ({
+    space: defineTable ({
         name: v.string(),
         description: v.optional(v.string()),
-        authorId: v.id("users") //to my understanding, this is quering my Convex db "users" table and somehow getting the id of the current user making the subreddit.
+        authorId: v.id("users")
     }).searchIndex("search_body", {searchField: "name"}),
     post: defineTable ({
         subject: v.string(),
         body: v.string(),
-        subreddit: v.id("subreddit"),
+        space: v.id("space"),
         authorId: v.id("users"),
-        image: v.optional(v.id("_storage")), //optional, will be handled later
-        location: v.optional(v.string()) //optional location field for posts
+        image: v.optional(v.id("_storage")),
+        location: v.optional(v.string())
     })
-    .index("bySubreddit", ["subreddit"])
+    .index("bySpace", ["space"])
     .index("byAuthor", ["authorId"])
-    .searchIndex("search_body", {searchField: "subject", filterFields: ["subreddit"]}),
+    .searchIndex("search_body", {searchField: "subject", filterFields: ["space"]}),
     comments: defineTable({
         content: v.string(),
         postId: v.id("post"),

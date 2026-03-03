@@ -4,10 +4,10 @@ import { getCurrentUserOrCreate } from "./users"
 import {Doc, Id} from "./_generated/dataModel"
 import {counts, postCountKey} from "./counter"
 
-type EnrichedPost = Omit<Doc<"post">, "subreddit"> & {  //getting all the properties of "post" removing those that are also in subreddit, and then adding the ones we want.
+type EnrichedPost = Omit<Doc<"post">, "space"> & {
     author: {username: string} | undefined
-    subreddit: {
-        _id: Id<"subreddit">;
+    space: {
+        _id: Id<"space">;
         name: string;
     } | undefined
     imageUrl?: string
@@ -15,7 +15,7 @@ type EnrichedPost = Omit<Doc<"post">, "subreddit"> & {  //getting all the proper
 
 const ERROR_MESSAGE = {
     POST_NOT_FOUND: "Post not found",
-    SUBREDDIT_NOT_FOUND: "Subreddit not found",
+    SPACE_NOT_FOUND: "Space not found",
     UNAUTHORIZED_DELETE: "You can't delete this post."
 }
 
@@ -25,7 +25,7 @@ export const create = mutation({
     args: {
         subject: v.string(),
         body: v.string(),
-        subreddit: v.id("subreddit"),
+        space: v.id("space"),
         storageId: v.optional(v.id("_storage")),
         location: v.optional(v.string()),
     },
@@ -34,7 +34,7 @@ export const create = mutation({
         const postId = await ctx.db.insert("post", {
             subject: args.subject,
             body: args.body,
-            subreddit: args.subreddit,
+            space: args.space,
             authorId: user._id,
             image: args.storageId || undefined,
             location: args.location || undefined
@@ -45,9 +45,9 @@ export const create = mutation({
 });
 
 async function getEnrichedPost(ctx: QueryCtx, post: Doc<"post">): Promise<EnrichedPost> {
-    const [author, subreddit] = await Promise.all([
+    const [author, space] = await Promise.all([
         ctx.db.get(post.authorId),
-        ctx.db.get(post.subreddit)
+        post.space ? ctx.db.get(post.space) : Promise.resolve(null)
     ])
 
     const image = post.image && await ctx.storage.getUrl(post.image)
@@ -55,23 +55,22 @@ async function getEnrichedPost(ctx: QueryCtx, post: Doc<"post">): Promise<Enrich
     return {
         ...post,
         author: author? {username: author.username} : undefined,
-        subreddit: {
-            _id: subreddit!._id, // ! because we know id will exist
-            name: subreddit!.name
+        space: {
+            _id: space!._id,
+            name: space!.name
         },
-        imageUrl: image ?? undefined //review what ?? does.
+        imageUrl: image ?? undefined
     }
 }
 
 export async function getEnrichedPosts(
-    ctx: QueryCtx, 
+    ctx: QueryCtx,
     posts: Doc<"post">[]
 ): Promise<EnrichedPost[]> {
     return Promise.all(posts.map((post) => getEnrichedPost(ctx, post)));
 }
 
 
-//this would be the query for getting an individual post
 export const getPost = query({
     args: {id: v.id("post")},
     handler: async (ctx, args) => {
@@ -82,20 +81,20 @@ export const getPost = query({
 
 })
 
-/* We are first using the subreddit name to get the subreddit's id, then we are using that id to get all it's posts.*/
-export const getSubredditPosts = query({
-    args: {subreddit: v.string()},
+/* We are first using the space name to get the space's id, then we are using that id to get all its posts. */
+export const getSpacePosts = query({
+    args: {space: v.string()},
     handler: async (ctx, args): Promise<EnrichedPost[]> => {
-        const subreddit = await ctx.db
-        .query("subreddit")
-        .filter((q) => q.eq(q.field("name"), args.subreddit))
+        const space = await ctx.db
+        .query("space")
+        .filter((q) => q.eq(q.field("name"), args.space))
         .unique()
 
-        if(!subreddit) return [];
+        if(!space) return [];
 
         const posts = await ctx.db
         .query("post")
-        .withIndex("bySubreddit", (q) => q.eq("subreddit", subreddit._id))
+        .withIndex("bySpace", (q) => q.eq("space", space._id))
         .collect();
 
         return getEnrichedPosts(ctx, posts)
@@ -110,7 +109,7 @@ export const userPosts = query({
         .filter((q) => q.eq(q.field("username"), args.authorUsername))
         .unique()
 
-        if(!user) return []; //return empty array if no users are found
+        if(!user) return [];
 
         const posts = await ctx.db
         .query("post")
@@ -139,18 +138,18 @@ export const deletePost = mutation({
 })
 
 export const search = query({
-    args: {queryStr: v.string(), subreddit: v.string()},
+    args: {queryStr: v.string(), space: v.string()},
     handler: async (ctx, args) => {
         if (args.queryStr) return []
 
-        const subredditObj = await ctx.db.query("subreddit").filter((q) => q.eq(q.field("name"), args.subreddit))
+        const spaceObj = await ctx.db.query("space").filter((q) => q.eq(q.field("name"), args.space))
         .unique();
 
-        if (!subredditObj) return [];
+        if (!spaceObj) return [];
 
         const posts = await ctx.db.query("post").withSearchIndex("search_body", (q) => q.search("subject", args.queryStr)
-    .eq("subreddit", subredditObj._id)).take(10);
+    .eq("space", spaceObj._id)).take(10);
 
-    return posts.map(post => ({_id: post._id, title: post.subject, type: "post", name: subredditObj.name}))
+    return posts.map(post => ({_id: post._id, title: post.subject, type: "post", name: spaceObj.name}))
     }
 })

@@ -21,7 +21,7 @@ interface Post {
   author?: {
     username: string;
   };
-  subreddit?: {
+  space?: {
     name: string;
   };
 }
@@ -33,7 +33,7 @@ interface PostCardProps {
 
 interface PostHeaderProps {
     author?: {username: string}
-    subreddit: {name: string}
+    space: {name: string}
     showSubreddit: boolean
     creationTime: number
     location?: string
@@ -79,7 +79,7 @@ const VoteButtons = ({voteCounts, hasUpvoted, hasDownvoted, onUpvote, onDownvote
     </div>
 };
 
-const PostHeader = ({author, subreddit, showSubreddit, creationTime, location}: PostHeaderProps) => {
+const PostHeader = ({author, space, showSubreddit, creationTime, location}: PostHeaderProps) => {
     return (
     <div className="post-header">
         {author ? (
@@ -87,10 +87,10 @@ const PostHeader = ({author, subreddit, showSubreddit, creationTime, location}: 
          ) : (
          <span className="post-author">u/deleted</span>
         )}
-        {showSubreddit && subreddit && (
-            <> 
+        {showSubreddit && space && (
+            <>
             <span className="post-dot">-</span>
-            <Link to={`/r/${subreddit.name}`} className="post-subreddit">r/{subreddit.name}</Link>
+            <Link to={`/c/${space.name}`} className="post-space">c/{space.name}</Link>
         </>
         )}
         <span className="post-dot">-</span>
@@ -230,10 +230,10 @@ const PostCard = ({post, showSubreddit=false, expandedView=false}: PostCardProps
             onDownvote={user ? onDownvote : () => {}}
         />
         <div className="post-content">
-            <PostHeader 
-            author={post.author} 
-            subreddit={post.subreddit?? {name: "deleted"}} 
-            showSubreddit={showSubreddit} 
+            <PostHeader
+            author={post.author}
+            space={post.space?? {name: "deleted"}}
+            showSubreddit={showSubreddit}
             creationTime={post._creationTime}
             location={post.location}
             />

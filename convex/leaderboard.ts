@@ -3,7 +3,7 @@ import {v} from "convex/values"
 import {counts} from "./counter"
 import voteKey from "./vote"
 
-export const getTopSubredditsToday = query({
+export const getTopSpacesToday = query({
     args: {},
     handler: async (ctx) => {
         const oneDayAgo = Date.now() - 1000 * 60 * 60 * 24
@@ -12,14 +12,15 @@ export const getTopSubredditsToday = query({
             .filter(q => q.gt(q.field("_creationTime"), oneDayAgo))
             .collect()
 
-        const countMap = new Map<string, { id: typeof posts[0]["subreddit"], count: number }>()
+        const countMap = new Map<string, { id: typeof posts[0]["space"], count: number }>()
         for (const post of posts) {
-            const key = post.subreddit as string
+            if (!post.space) continue
+            const key = post.space as string
             const entry = countMap.get(key)
             if (entry) {
                 entry.count++
             } else {
-                countMap.set(key, { id: post.subreddit, count: 1 })
+                countMap.set(key, { id: post.space, count: 1 })
             }
         }
 
@@ -29,8 +30,8 @@ export const getTopSubredditsToday = query({
 
         return await Promise.all(
             sorted.map(async ({ id, count }) => {
-                const subreddit = await ctx.db.get(id)
-                return { name: subreddit?.name ?? "[deleted]", postCount: count }
+                const space = id ? await ctx.db.get(id) : null
+                return { name: space?.name ?? "[deleted]", postCount: count }
             })
         )
     }
@@ -52,7 +53,7 @@ export const getTopPosts = query({
                 const downvotes = await counts.count(ctx, voteKey(post._id, "downvote"))
 
                 const author = await ctx.db.get(post.authorId)
-                const subreddit = await ctx.db.get(post.subreddit)
+                const space = post.space ? await ctx.db.get(post.space) : null
 
                 return {
                     ...post,
@@ -60,7 +61,7 @@ export const getTopPosts = query({
                     upvotes,
                     downvotes,
                     author: {username: author?.username ?? "[deleted]"},
-                    subreddit: {name: subreddit?.name ?? "[deleted]"}
+                    space: {name: space?.name ?? "[deleted]"}
                 }
             })
         )

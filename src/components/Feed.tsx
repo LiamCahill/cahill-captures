@@ -3,7 +3,7 @@ import { useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import {api} from "../../convex/_generated/api"
 import PostCard from "./PostCard";
-import { TopSubredditsWidget } from "./TopSubredditsWidget"
+import { TopSpacesWidget } from "./TopSpacesWidget"
 import { NewestUsersWidget } from "./NewestUsersWidget";
 import "../styles/Feed.css"
 
@@ -42,7 +42,7 @@ export function Feed() {
                 <Authenticated>
                     <ProfileWidget />
                 </Authenticated>
-                <TopSubredditsWidget />
+                <TopSpacesWidget />
                 <NewestUsersWidget />
             </aside>
         </div>

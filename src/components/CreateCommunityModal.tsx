@@ -13,7 +13,7 @@ const CreateCommunityModal = ({isOpen, onClose}: CreateCommunityModalProps) => {
     const [description, setDescription] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
-    const createSubreddit = useMutation(api.subreddit.create);
+    const createSpace = useMutation(api.space.create);
 
 
     if(!isOpen) return null
@@ -41,7 +41,7 @@ const CreateCommunityModal = ({isOpen, onClose}: CreateCommunityModalProps) => {
         }
 
         setIsLoading(true)
-        await createSubreddit({name, description})
+        await createSpace({name, description})
         .then((result) => {
             console.log(result)
             onClose()
@@ -67,7 +67,7 @@ const CreateCommunityModal = ({isOpen, onClose}: CreateCommunityModalProps) => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <div className="input-prefix">r/</div>
+                    <div className="input-prefix">c/</div>
                     <input 
                         type="text" 
                         id="name" 

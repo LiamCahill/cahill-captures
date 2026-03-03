@@ -9,13 +9,13 @@ export function NewestUsersWidget() {
     if (!users || users.length === 0) return null
 
     return (
-        <div className="top-subreddits-widget">
-            <h3 className="top-subreddits-title">Newest Members</h3>
-            <ul className="top-subreddits-list">
+        <div className="top-spaces-widget">
+            <h3 className="top-spaces-title">Newest Members</h3>
+            <ul className="top-spaces-list">
                 {users.map((user) => (
-                    <li key={user.username} className="top-subreddits-row">
-                        <Link to={`/u/${user.username}`} className="top-subreddits-link">
-                            <span className="top-subreddits-name">u/{user.username}</span>
+                    <li key={user.username} className="top-spaces-row">
+                        <Link to={`/u/${user.username}`} className="top-spaces-link">
+                            <span className="top-spaces-name">u/{user.username}</span>
                         </Link>
                     </li>
                 ))}

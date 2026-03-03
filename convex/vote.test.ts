@@ -16,7 +16,7 @@ vi.mock("./counter", () => ({
 
 const modules = import.meta.glob("./**/*.ts");
 
-// Inserts a user, subreddit, and post directly into the db for test setup.
+// Inserts a user, space, and post directly into the db for test setup.
 // Uses t.run() to bypass mutations that call the sharded counter.
 async function setupFixture(t: ReturnType<typeof convexTest>) {
   return t.run(async (ctx) => {
@@ -24,14 +24,14 @@ async function setupFixture(t: ReturnType<typeof convexTest>) {
       username: "alice",
       externalId: "user_alice",
     });
-    const subId = await ctx.db.insert("subreddit", {
+    const subId = await ctx.db.insert("space", {
       name: "testcommunity",
       authorId: userId,
     });
     const postId = await ctx.db.insert("post", {
       subject: "Test post",
       body: "Hello world",
-      subreddit: subId,
+      space: subId,
       authorId: userId,
     });
     return { userId, postId };

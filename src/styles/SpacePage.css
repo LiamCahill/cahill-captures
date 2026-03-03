@@ -5,7 +5,7 @@
   padding-top: 69px; /* Navbar height + spacing */
 }
 
-.subreddit-banner {
+.space-banner {
   background: white;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -13,14 +13,14 @@
   margin-bottom: 24px;
 }
 
-.subreddit-banner h1 {
+.space-banner h1 {
   font-size: 28px;
   font-weight: 700;
   color: #1a1a1b;
   margin: 0 0 12px 0;
 }
 
-.subreddit-banner p {
+.space-banner p {
   font-size: 14px;
   color: #7c7c7c;
   line-height: 1.5;
