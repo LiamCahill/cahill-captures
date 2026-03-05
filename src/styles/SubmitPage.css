@@ -80,8 +80,10 @@
   margin-top: 16px;
   position: relative;
   display: inline-block;
+  max-width: 100%;
   width: 500px;
-  height: 300px;
+  aspect-ratio: 5/3;
+  height: auto;
   overflow: hidden;
 }
 
@@ -202,6 +204,12 @@
 .submit-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .submit-container {
+    padding: 12px;
+  }
 }
 
 .not-found {

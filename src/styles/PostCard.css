@@ -316,3 +316,34 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+@media (max-width: 600px) {
+  .post-votes {
+    padding: 4px;
+    min-width: 32px;
+  }
+
+  .vote-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .vote-button {
+    padding: 11px 4px;
+  }
+
+  .post-header {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+
+  .post-timestamp {
+    order: 10;
+    flex-basis: 100%;
+    font-size: 11px;
+  }
+
+  .post-dot:has(+ .post-timestamp) {
+    display: none;
+  }
+}

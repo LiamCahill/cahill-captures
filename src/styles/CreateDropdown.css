@@ -75,3 +75,9 @@
   display: flex;
   flex-direction: column;
 }
+
+@media (max-width: 600px) {
+  .create-dropdown {
+    max-width: calc(100vw - 32px);
+  }
+}
