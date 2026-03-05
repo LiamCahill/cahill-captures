@@ -137,6 +137,17 @@ export const deletePost = mutation({
 
 })
 
+export const getRecentPosts = query({
+    args: {},
+    handler: async (ctx): Promise<EnrichedPost[]> => {
+        const posts = await ctx.db
+            .query("post")
+            .order("desc")
+            .take(20);
+        return getEnrichedPosts(ctx, posts);
+    },
+})
+
 export const search = query({
     args: {queryStr: v.string(), space: v.string()},
     handler: async (ctx, args) => {

@@ -1,8 +1,17 @@
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
-import { internal } from "./_generated/api";
+import { internal, api } from "./_generated/api";
 import type { WebhookEvent } from "@clerk/backend";
 import { Webhook } from "svix";
+
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 
 const http = httpRouter();
 
@@ -37,6 +46,54 @@ http.route({
     }
 
     return new Response(null, { status: 200 });
+  }),
+});
+
+http.route({
+  path: "/feed.xml",
+  method: "GET",
+  handler: httpAction(async (ctx) => {
+    const posts = await ctx.runQuery(api.post.getRecentPosts);
+
+    const items = posts.map((post) => {
+      const link = `https://cahillcaptures.space/post/${post._id}`;
+      const pubDate = new Date(post._creationTime).toUTCString();
+      const description = post.location
+        ? `${escapeXml(post.body)} — 📍 ${escapeXml(post.location)}`
+        : escapeXml(post.body);
+      const enclosure = post.imageUrl
+        ? `<enclosure url="${escapeXml(post.imageUrl)}" length="0" type="image/jpeg" />`
+        : "";
+
+      return `
+    <item>
+      <title>${escapeXml(post.subject)}</title>
+      <link>${link}</link>
+      <description>${description}</description>
+      <author>${escapeXml(post.author?.username ?? "unknown")}</author>
+      <category>${escapeXml(post.space?.name ?? "")}</category>
+      <pubDate>${pubDate}</pubDate>
+      <guid isPermaLink="true">${link}</guid>
+      ${enclosure}
+    </item>`;
+    }).join("\n");
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Cahill Captures</title>
+    <link>https://cahillcaptures.space/</link>
+    <description>The latest photography captures from the Cahill Captures community</description>
+    <language>en-us</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    ${items}
+  </channel>
+</rss>`;
+
+    return new Response(xml, {
+      status: 200,
+      headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
+    });
   }),
 });
 
