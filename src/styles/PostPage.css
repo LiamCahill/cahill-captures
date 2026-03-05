@@ -10,11 +10,11 @@
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  color: #1a1a1b;
+  color: var(--text-primary);
 }
 
 .back-link {
-  color: black;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -22,5 +22,5 @@
 }
 
 .back-link:hover {
-  color: grey;
+  color: var(--text-muted);
 }

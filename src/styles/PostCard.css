@@ -1,7 +1,7 @@
 .post-card {
   display: flex;
-  background: white;
-  border: 1px solid #ccc;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -19,7 +19,7 @@
 }
 
 .clickable:hover {
-  background-color: #f8f9fa;
+  background-color: var(--bg-subtle);
 }
 
 .vote-section {
@@ -27,7 +27,7 @@
   flex-direction: column;
   align-items: center;
   padding: 8px;
-  background-color: #f8f9fa;
+  background-color: var(--bg-subtle);
   gap: 4px;
 }
 
@@ -39,20 +39,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .vote-button:hover {
-  background-color: #e9ecef;
+  background-color: var(--bg-hover);
   border-radius: 4px;
 }
 
 .vote-button:hover {
-  color: #ff4500;
+  color: var(--upvote);
 }
 
 .vote-button.voted {
-  color: #ff4500;
+  color: var(--upvote);
 }
 
 .vote-button.voted:hover {
@@ -73,7 +73,7 @@
 .vote-count {
   font-weight: 600;
   font-size: 12px;
-  color: #1a1a1b;
+  color: var(--text-primary);
 }
 
 .post-header {
@@ -81,12 +81,12 @@
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  color: #787c7e;
+  color: var(--text-muted);
   margin-bottom: 8px;
 }
 
 .space-link {
-  color: #1a1a1b;
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 600;
 }
@@ -96,15 +96,15 @@
 }
 
 .post-author {
-  color: #787c7e;
+  color: var(--text-muted);
 }
 
 .post-time {
-  color: #787c7e;
+  color: var(--text-muted);
 }
 
 .post-location {
-  color: #787c7e;
+  color: var(--text-muted);
   font-style: italic;
 }
 
@@ -112,13 +112,13 @@
   font-size: 18px;
   font-weight: 500;
   margin: 0 0 8px 0;
-  color: #1a1a1b;
+  color: var(--text-primary);
 }
 
 .post-body {
   font-size: 14px;
   line-height: 1.5;
-  color: #1a1a1b;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -136,13 +136,13 @@
   border: none;
   padding: 8px;
   font-size: 12px;
-  color: #878a8c;
+  color: var(--text-muted);
   cursor: pointer;
   border-radius: 4px;
 }
 
 .action-button:hover {
-  background-color: #e9ecef;
+  background-color: var(--bg-hover);
 }
 
 .post-card.expanded {
@@ -167,17 +167,17 @@
   flex-direction: column;
   align-items: center;
   padding: 8px;
-  background-color: #f8f9fa;
+  background-color: var(--bg-subtle);
   min-width: 40px;
   gap: 2px;
 }
 
 .upvote-count {
-  color: #ff4500;
+  color: var(--upvote);
 }
 
 .downvote-count {
-  color: #7193ff;
+  color: var(--downvote);
 }
 
 .total-count {
@@ -188,7 +188,7 @@
 .vote-details {
   display: none;
   font-size: 12px;
-  color: #878a8c;
+  color: var(--text-muted);
   text-align: center;
   flex-direction: column;
   gap: 2px;
@@ -203,11 +203,11 @@
 }
 
 .post-timestamp {
-  color: #787c7e;
+  color: var(--text-muted);
 }
 
 .post-space {
-  color: #0079d3;
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
 }
@@ -217,7 +217,7 @@
 }
 
 .delete-button {
-  color: #ff4444;
+  color: var(--danger);
 }
 
 .delete-button:hover {
@@ -240,25 +240,25 @@
   width: 100%;
   min-height: 80px;
   padding: 8px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
   resize: vertical;
   font-family: inherit;
   font-size: 14px;
   line-height: 1.4;
-  background-color: #ffffff;
-  color: #1a1a1b;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
   transition: border-color 0.2s;
 }
 
 .comment-input:focus {
   outline: none;
-  border-color: #0079d3;
-  box-shadow: 0 0 0 1px #0079d3;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .comment-input::placeholder {
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .comment-submit {
@@ -267,7 +267,7 @@
   font-size: 12px;
   font-weight: 600;
   color: #ffffff;
-  background-color: #0079d3;
+  background-color: var(--accent);
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -275,11 +275,11 @@
 }
 
 .comment-submit:hover {
-  background-color: #005fa3;
+  background-color: var(--accent-hover);
 }
 
 .comment-submit:disabled {
-  background-color: #cccccc;
+  background-color: var(--text-muted);
   cursor: not-allowed;
 }
 

@@ -6,8 +6,8 @@
 }
 
 .space-banner {
-  background: white;
-  border: 1px solid #ccc;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 24px;
   margin-bottom: 24px;
@@ -16,13 +16,13 @@
 .space-banner h1 {
   font-size: 28px;
   font-weight: 700;
-  color: #1a1a1b;
+  color: var(--text-primary);
   margin: 0 0 12px 0;
 }
 
 .space-banner p {
   font-size: 14px;
-  color: #7c7c7c;
+  color: var(--text-muted);
   line-height: 1.5;
   margin: 0;
 }
@@ -34,17 +34,17 @@
 }
 
 .no-posts {
-  background: white;
-  border: 1px solid #ccc;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 24px;
   text-align: center;
-  color: #7c7c7c;
+  color: var(--text-muted);
 }
 
 .not-found {
-  background: white;
-  border: 1px solid #ccc;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 24px;
   text-align: center;
@@ -53,12 +53,12 @@
 .not-found h1 {
   font-size: 24px;
   font-weight: 500;
-  color: #1a1a1b;
+  color: var(--text-primary);
   margin: 0 0 12px 0;
 }
 
 .not-found p {
   font-size: 14px;
-  color: #7c7c7c;
+  color: var(--text-muted);
   margin: 0;
 }

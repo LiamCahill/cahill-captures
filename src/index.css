@@ -2,16 +2,47 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  /* Structural colors — change in dark mode */
+  --bg-page:        #DAE0E6;
+  --bg-surface:     #ffffff;
+  --bg-subtle:      #f6f7f8;
+  --bg-hover:       #e9ecef;
+
+  --text-primary:   #1a1a1b;
+  --text-muted:     #878a8c;
+  --text-faint:     #4c5054;
+
+  --border:         #ccc;
+  --border-subtle:  #edeff1;
+
+  /* Brand colors — same in both modes */
+  --accent:         #0079d3;
+  --accent-hover:   #005fa3;
+  --upvote:         #ff4500;
+  --downvote:       #7193ff;
+  --danger:         #ff4444;
+}
+
+[data-theme="dark"] {
+  --bg-page:        #1a1a1b;
+  --bg-surface:     #272729;
+  --bg-subtle:      #1a1a1b;
+  --bg-hover:       #313135;
+
+  --text-primary:   #d7dadc;
+  --text-muted:     #818384;
+  --text-faint:     #818384;
+
+  --border:         #343536;
+  --border-subtle:  #343536;
+
+  --accent-hover:   #1484d7;
 }
 
 * {
@@ -36,46 +67,10 @@ body {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent);
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  color: var(--accent-hover);
 }

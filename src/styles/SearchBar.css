@@ -9,8 +9,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  background-color: #f6f7f8;
-  border: 1px solid #edeff1;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
   width: 100%;
   max-width: 600px;
@@ -20,12 +20,12 @@
 }
 
 .search-container:focus-within {
-  background-color: white;
-  border-color: #0079d3;
+  background-color: var(--bg-surface);
+  border-color: var(--accent);
 }
 
 .search-icon {
-  color: #878a8c;
+  color: var(--text-muted);
   font-size: 16px;
   margin-right: 8px;
 }
@@ -35,24 +35,24 @@
   border: none;
   background: none;
   font-size: 14px;
-  color: #1c1c1c;
+  color: var(--text-primary);
   outline: none;
   width: 100%;
 }
 
 .search-input::placeholder {
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .search-scope {
   display: flex;
   align-items: center;
   padding: 0 8px;
-  color: #0079d3;
+  color: var(--accent);
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
-  border-left: 1px solid #edeff1;
+  border-left: 1px solid var(--border-subtle);
   margin-left: 8px;
 }
 
@@ -61,8 +61,8 @@
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #edeff1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: 400px;
@@ -87,7 +87,7 @@
 }
 
 .result-item:hover {
-  background-color: #f6f7f8;
+  background-color: var(--bg-subtle);
 }
 
 .result-icon {
@@ -98,7 +98,7 @@
   height: 24px;
   margin-right: 12px;
   font-size: 20px;
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .result-content {
@@ -111,7 +111,7 @@
 .result-title {
   font-size: 14px;
   font-weight: 500;
-  color: #1c1c1c;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -119,14 +119,14 @@
 
 .result-subtitle {
   font-size: 12px;
-  color: #878a8c;
+  color: var(--text-muted);
   margin-top: 2px;
 }
 
 .empty-state {
   padding: 16px;
   text-align: center;
-  color: #878a8c;
+  color: var(--text-muted);
   font-size: 14px;
-  border-top: 1px solid #edeff1;
+  border-top: 1px solid var(--border-subtle);
 }

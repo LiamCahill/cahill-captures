@@ -1,4 +1,4 @@
-import { FaPlus, FaUser } from "react-icons/fa";
+import { FaPlus, FaUser, FaSun, FaMoon } from "react-icons/fa";
 import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 import { Authenticated, Unauthenticated } from "convex/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,10 +7,26 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 import "../styles/Navbar.css";
 
+function useTheme() {
+  const [theme, setTheme] = useState<'light' | 'dark'>(
+    () => (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') ?? 'light'
+  );
+
+  const toggle = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    setTheme(next);
+  };
+
+  return { theme, toggle };
+}
+
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { user } = useUser();
   const navigate = useNavigate();
+  const { theme, toggle } = useTheme();
 
   return (
     <nav className="navbar">
@@ -24,6 +40,9 @@ const Navbar = () => {
         <SearchBar />
 
         <div className="nav-actions">
+          <button className="theme-toggle" onClick={toggle} title="Toggle dark mode">
+            {theme === 'dark' ? <FaSun /> : <FaMoon />}
+          </button>
           <Unauthenticated>
             <SignInButton mode="modal">
               <button className="sign-in-button">Sign In</button>
@@ -48,7 +67,13 @@ const Navbar = () => {
             >
               <FaUser />
             </button>
-            <UserButton />
+            <UserButton
+              appearance={{
+                variables: {
+                  colorBackground: theme === 'dark' ? '#272729' : '#ffffff',
+                }
+              }}
+            />
           </Authenticated>
         </div>
       </div>

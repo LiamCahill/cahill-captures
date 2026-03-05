@@ -6,8 +6,8 @@
 }
 
 .profile-header {
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 24px 28px;
   margin-bottom: 16px;
@@ -17,13 +17,13 @@
 .profile-header h1 {
   font-size: 26px;
   font-weight: 700;
-  color: #1a1a1b;
+  color: var(--text-primary);
   margin: 0 0 6px 0;
 }
 
 .profile-post-count {
   font-size: 14px;
-  color: #7c7c7c;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -34,17 +34,17 @@
 }
 
 .no-posts {
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 24px;
   text-align: center;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .not-found {
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 32px 28px;
   text-align: center;
@@ -53,21 +53,21 @@
 .not-found h1 {
   font-size: 20px;
   font-weight: 600;
-  color: #1a1a1b;
+  color: var(--text-primary);
   margin: 0 0 8px 0;
 }
 
 .not-found p {
-  color: #7c7c7c;
+  color: var(--text-muted);
   margin: 0;
 }
 
 .loading {
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 24px;
   text-align: center;
-  color: #666;
+  color: var(--text-muted);
   margin-top: 16px;
 }

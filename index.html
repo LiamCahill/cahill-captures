@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cahill Captures</title>
     <link rel="alternate" type="application/rss+xml" title="Cahill Captures" href="https://cahillcaptures.space/feed.xml" />
+    <script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved !== null ? saved : preferred);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

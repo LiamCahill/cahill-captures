@@ -6,9 +6,9 @@
 }
 
 .submit-container {
-  background: white;
+  background: var(--bg-surface);
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   padding: 24px;
 }
 
@@ -16,7 +16,7 @@
   font-size: 18px;
   font-weight: 500;
   margin: 0 0 20px 0;
-  color: #1a1a1b;
+  color: var(--text-primary);
 }
 
 .submit-form {
@@ -30,27 +30,27 @@
   padding: 16px;
   font-size: 18px;
   font-weight: 500;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
-  background-color: white;
-  color: #1c1c1c;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
   transition: border-color 0.2s;
 }
 
 .submit-title:focus {
-  border-color: #0079d3;
+  border-color: var(--accent);
   outline: none;
 }
 
 .submit-title::placeholder {
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .media-input-container {
-  border: 1px solid #edeff1;
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
   padding: 16px;
-  background-color: white;
+  background-color: var(--bg-surface);
 }
 
 .image-upload-label {
@@ -58,22 +58,22 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background-color: #f6f7f8;
-  border: 1px solid #edeff1;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
   cursor: pointer;
-  color: #1c1c1c;
+  color: var(--text-primary);
   font-size: 14px;
   transition: background-color 0.2s;
 }
 
 .image-upload-label:hover {
-  background-color: #e9ecef;
+  background-color: var(--bg-hover);
 }
 
 .image-icon {
   font-size: 18px;
-  color: #0079d3;
+  color: var(--accent);
 }
 
 .image-preview-container {
@@ -91,7 +91,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background-color: #f6f7f8;
+  background-color: var(--bg-subtle);
   border-radius: 4px;
 }
 
@@ -122,41 +122,41 @@
   min-height: 200px;
   padding: 12px;
   font-size: 14px;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
-  background-color: white;
-  color: #1c1c1c;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
   transition: border-color 0.2s;
   resize: vertical;
 }
 
 .submit-body:focus {
-  border-color: #0079d3;
+  border-color: var(--accent);
   outline: none;
 }
 
 .submit-body::placeholder {
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .submit-location {
   width: 100%;
   padding: 12px;
   font-size: 14px;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
-  background-color: white;
-  color: #1c1c1c;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
   transition: border-color 0.2s;
 }
 
 .submit-location:focus {
-  border-color: #0079d3;
+  border-color: var(--accent);
   outline: none;
 }
 
 .submit-location::placeholder {
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .submit-actions {
@@ -170,15 +170,15 @@
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: #e9e9e9;
-  color: #1a1a1b;
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .back-button:hover {
-  background-color: #d7d7d7;
+  background-color: var(--border);
 }
 
 .back-button:disabled {
@@ -190,7 +190,7 @@
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: #0079d3;
+  background-color: var(--accent);
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -198,7 +198,7 @@
 }
 
 .submit-button:hover {
-  background-color: #0061a9;
+  background-color: var(--accent-hover);
 }
 
 .submit-button:disabled {
@@ -206,16 +206,10 @@
   cursor: not-allowed;
 }
 
-@media (max-width: 600px) {
-  .submit-container {
-    padding: 12px;
-  }
-}
-
 .not-found {
   text-align: center;
   padding: 48px 24px;
-  background-color: white;
+  background-color: var(--bg-surface);
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -223,10 +217,16 @@
 .not-found h1 {
   margin: 0 0 12px 0;
   font-size: 24px;
-  color: #1c1c1c;
+  color: var(--text-primary);
 }
 
 .not-found p {
-  color: #878a8c;
+  color: var(--text-muted);
   margin: 0;
+}
+
+@media (max-width: 600px) {
+  .submit-container {
+    padding: 12px;
+  }
 }
