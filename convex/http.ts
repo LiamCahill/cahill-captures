@@ -58,18 +58,22 @@ http.route({
     const items = posts.map((post) => {
       const link = `https://cahillcaptures.space/post/${post._id}`;
       const pubDate = new Date(post._creationTime).toUTCString();
-      const description = post.location
-        ? `${escapeXml(post.body)} — 📍 ${escapeXml(post.location)}`
-        : escapeXml(post.body);
       const enclosure = post.imageUrl
         ? `<enclosure url="${escapeXml(post.imageUrl)}" length="0" type="image/jpeg" />`
         : "";
+
+      const cdataDescription = `<![CDATA[
+        <p>${post.body}</p>
+        ${post.imageUrl ? `<p><img src="${post.imageUrl}" alt="${post.subject}" /></p>` : ""}
+        ${post.location ? `<p>📍 ${post.location}</p>` : ""}
+        <p><a href="${link}">View on Cahill Captures →</a></p>
+      ]]>`;
 
       return `
     <item>
       <title>${escapeXml(post.subject)}</title>
       <link>${link}</link>
-      <description>${description}</description>
+      <description>${cdataDescription}</description>
       <author>${escapeXml(post.author?.username ?? "unknown")}</author>
       <category>${escapeXml(post.space?.name ?? "")}</category>
       <pubDate>${pubDate}</pubDate>
@@ -79,10 +83,11 @@ http.route({
     }).join("\n");
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cahill Captures</title>
     <link>https://cahillcaptures.space/</link>
+    <atom:link href="https://cahillcaptures.space/feed.xml" rel="self" type="application/rss+xml" />
     <description>The latest photography captures from the Cahill Captures community</description>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
