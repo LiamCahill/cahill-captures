@@ -3,6 +3,10 @@
     {
       "source": "/feed.xml",
       "destination": "https://befitting-badger-964.convex.site/feed.xml"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
