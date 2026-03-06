@@ -58,8 +58,8 @@ export function StravaWidget() {
                 <p className="strava-widget-empty">Loading...</p>
             ) : (
                 <>
-                    {activities.length === 0 && connectionStatus === "none" && (
-                        <p className="strava-widget-empty">No activity yet.</p>
+                    {activities.length === 0 && connectionStatus === "connected" && (
+                        <p className="strava-widget-empty">No activity synced yet — check back soon.</p>
                     )}
                     {activities.map((activity) => {
                         const isMe = user?.username === activity.username;
