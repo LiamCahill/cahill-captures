@@ -13,7 +13,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: var(--bg-surface);
   border-radius: 4px;
   width: 100%;
   max-width: 480px;
@@ -25,21 +25,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .modal-header h2 {
   margin: 0;
   font-size: 16px;
   font-weight: 500;
-  color: #1c1c1c;
+  color: var(--text-primary);
 }
 
 .close-button {
   background: none;
   border: none;
   font-size: 24px;
-  color: #878a8c;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 0;
   width: 24px;
@@ -50,7 +50,7 @@
 }
 
 .close-button:hover {
-  color: #1c1c1c;
+  color: var(--text-primary);
 }
 
 form {
@@ -66,11 +66,11 @@ form {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #1c1c1c;
+  color: var(--text-primary);
 }
 
 .form-group label span {
-  color: #878a8c;
+  color: var(--text-muted);
   font-weight: normal;
 }
 
@@ -78,7 +78,7 @@ form {
   position: absolute;
   left: 12px;
   top: 35px;
-  color: #878a8c;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
@@ -87,10 +87,10 @@ form {
   width: 100%;
   padding: 8px 12px;
   font-size: 14px;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
-  background-color: white;
-  color: black
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
 }
 
 .form-group input {
@@ -100,7 +100,7 @@ form {
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #0079d3;
+  border-color: var(--accent);
 }
 
 .form-group textarea {
@@ -111,7 +111,7 @@ form {
 .input-help {
   margin-top: 4px;
   font-size: 12px;
-  color: #878a8c;
+  color: var(--text-muted);
 }
 
 .error-message {
@@ -148,12 +148,12 @@ form {
 
 .cancel-button {
   background: none;
-  border: 1px solid #0079d3;
-  color: #0079d3;
+  border: 1px solid var(--accent);
+  color: var(--accent);
 }
 
 .create-button {
-  background-color: #0079d3;
+  background-color: var(--accent);
   border: none;
   color: white;
 }
@@ -164,13 +164,12 @@ form {
   color: black;
 }
 
-
 .cancel-button:hover {
-  background-color: rgba(0, 121, 211, 0.05);
+  background-color: var(--bg-hover);
 }
 
 .create-button:hover {
-  background-color: #1484d7;
+  background-color: var(--accent-hover);
 }
 
 .cancel-button:disabled,
@@ -181,6 +180,7 @@ form {
 
 .form-group input:disabled,
 .form-group textarea:disabled {
-  background-color: #f6f7f8;
+  background-color: var(--bg-subtle);
+  color: var(--text-muted);
   cursor: not-allowed;
 }

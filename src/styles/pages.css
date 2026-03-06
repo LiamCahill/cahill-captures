@@ -1,6 +1,6 @@
 .profile-header,
 .space-header {
-  background-color: white;
+  background-color: var(--bg-surface);
   padding: 24px;
   margin-bottom: 24px;
   border-radius: 4px;
@@ -11,7 +11,7 @@
 .space-header h1 {
   margin: 0;
   font-size: 28px;
-  color: #1c1c1c;
+  color: var(--text-primary);
 }
 
 .profile-content,
@@ -29,7 +29,7 @@
 }
 
 .posts-section {
-  background-color: white;
+  background-color: var(--bg-surface);
   border-radius: 4px;
   padding: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -43,7 +43,7 @@
 
 .profile-card,
 .about-community {
-  background-color: white;
+  background-color: var(--bg-surface);
   border-radius: 4px;
   padding: 12px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -53,14 +53,14 @@
 .about-community h2 {
   font-size: 16px;
   font-weight: 500;
-  color: #1c1c1c;
+  color: var(--text-primary);
   margin: 0 0 12px 0;
 }
 
 .not-found {
   text-align: center;
   padding: 48px 24px;
-  background-color: white;
+  background-color: var(--bg-surface);
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -68,10 +68,10 @@
 .not-found h1 {
   margin: 0 0 12px 0;
   font-size: 24px;
-  color: #1c1c1c;
+  color: var(--text-primary);
 }
 
 .not-found p {
-  color: #878a8c;
+  color: var(--text-muted);
   margin: 0;
 }
