@@ -189,6 +189,9 @@ export function WhereIAmWidget() {
                                 {/* Travel form for current user */}
                                 {isMe && !editingHome && (
                                     <form onSubmit={handleSetTravel} className="where-i-am-travel-form">
+                                        <span className="where-i-am-form-label">
+                                            {isActiveTraveling ? "Update status" : "Set travel status"}
+                                        </span>
                                         <div className="where-i-am-sentence">
                                             <span className="where-i-am-sentence-text">
                                                 {username} will be in
