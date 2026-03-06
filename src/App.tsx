@@ -5,6 +5,7 @@ import PostPage from "./pages/PostPage";
 import ProfilePage from "./pages/ProfilePage";
 import SpacePage from "./pages/SpacePage";
 import SubmitPage from "./pages/SubmitPage";
+import StravaCallback from "./pages/StravaCallback";
 import "./styles/App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                   <Route path="c/:spaceName/submit" element={<SubmitPage />} />
                   <Route path="u/:username" element={<ProfilePage />} />
                   <Route path="post/:postId" element ={<PostPage />}/>
+                  <Route path="strava-callback" element={<StravaCallback />} />
                   <Route path="*" element ={<Navigate to="/" replace />}/>                
                 </Route>
             </Routes>

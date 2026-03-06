@@ -5,6 +5,7 @@ import {api} from "../../convex/_generated/api"
 import PostCard from "./PostCard";
 import { TopSpacesWidget } from "./TopSpacesWidget"
 import { NewestUsersWidget } from "./NewestUsersWidget";
+import { StravaWidget } from "./StravaWidget";
 import "../styles/Feed.css"
 
 function ProfileWidget() {
@@ -44,6 +45,9 @@ export function Feed() {
                 </Authenticated>
                 <TopSpacesWidget />
                 <NewestUsersWidget />
+                <Authenticated>
+                    <StravaWidget />
+                </Authenticated>
             </aside>
         </div>
     );

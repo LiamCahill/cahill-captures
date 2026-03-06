@@ -174,3 +174,111 @@
   color: var(--text-muted);
   white-space: nowrap;
 }
+
+/* ─── Strava Widget ─────────────────────────────────────────────────── */
+
+.strava-widget {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 14px 16px;
+}
+
+.strava-widget-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.strava-widget-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0 0 8px;
+}
+
+.strava-activity-row {
+  border-top: 1px solid var(--border-subtle);
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.strava-activity-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.strava-activity-username {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.strava-activity-name {
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strava-activity-stats {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.strava-activity-location {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.strava-activity-time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.strava-connect-btn {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 5px 14px;
+}
+
+.strava-connect-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.strava-disconnect-btn {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.strava-disconnect-btn:hover {
+  color: var(--text-primary);
+}
+
+.strava-osm-attribution {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin: 8px 0 0;
+  text-align: right;
+}

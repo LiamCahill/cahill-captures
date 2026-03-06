@@ -10,11 +10,13 @@
 
 import type * as comments from "../comments.js";
 import type * as counter from "../counter.js";
+import type * as crons from "../crons.js";
 import type * as http from "../http.js";
 import type * as image from "../image.js";
 import type * as leaderboard from "../leaderboard.js";
 import type * as post from "../post.js";
 import type * as space from "../space.js";
+import type * as strava from "../strava.js";
 import type * as users from "../users.js";
 import type * as vote from "../vote.js";
 
@@ -35,11 +37,13 @@ import type {
 declare const fullApi: ApiFromModules<{
   comments: typeof comments;
   counter: typeof counter;
+  crons: typeof crons;
   http: typeof http;
   image: typeof image;
   leaderboard: typeof leaderboard;
   post: typeof post;
   space: typeof space;
+  strava: typeof strava;
   users: typeof users;
   vote: typeof vote;
 }>;
