@@ -14,6 +14,7 @@ import type * as crons from "../crons.js";
 import type * as http from "../http.js";
 import type * as image from "../image.js";
 import type * as leaderboard from "../leaderboard.js";
+import type * as locationStatus from "../locationStatus.js";
 import type * as post from "../post.js";
 import type * as space from "../space.js";
 import type * as strava from "../strava.js";
@@ -41,6 +42,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   image: typeof image;
   leaderboard: typeof leaderboard;
+  locationStatus: typeof locationStatus;
   post: typeof post;
   space: typeof space;
   strava: typeof strava;

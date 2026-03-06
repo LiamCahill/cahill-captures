@@ -1,4 +1,4 @@
-import { useQuery, Authenticated } from "convex/react";
+import { useQuery } from "convex/react";
 import { useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import {api} from "../../convex/_generated/api"
