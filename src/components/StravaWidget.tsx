@@ -39,9 +39,8 @@ function formatRelativeTime(timestamp: number) {
 }
 
 function buildStravaAuthUrl() {
-    const clientId = import.meta.env.VITE_STRAVA_CLIENT_ID;
     const redirectUri = encodeURIComponent(window.location.origin + "/strava-callback");
-    return `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=activity:read&approval_prompt=auto`;
+    return `https://www.strava.com/oauth/authorize?client_id=149972&redirect_uri=${redirectUri}&response_type=code&scope=activity:read&approval_prompt=auto`;
 }
 
 export function StravaWidget() {
