@@ -33,6 +33,14 @@ export default defineSchema({
         cachedAt: v.number(),
     })
     .index("byUserId", ["userId"]),
+    user_locations: defineTable({
+        userId: v.id("users"),
+        username: v.string(),
+        homeLocation: v.string(),
+        travelLocation: v.optional(v.string()),
+        expiresAt: v.optional(v.number()),
+    })
+    .index("byUserId", ["userId"]),
     space: defineTable ({
         name: v.string(),
         description: v.optional(v.string()),

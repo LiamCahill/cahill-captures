@@ -6,6 +6,7 @@ import PostCard from "./PostCard";
 import { TopSpacesWidget } from "./TopSpacesWidget"
 import { NewestUsersWidget } from "./NewestUsersWidget";
 import { StravaWidget } from "./StravaWidget";
+import { WhereIAmWidget } from "./WhereIAmWidget";
 import "../styles/Feed.css"
 
 function ProfileWidget() {
@@ -21,12 +22,33 @@ function ProfileWidget() {
     );
 }
 
-export function Feed() {
-    const topPosts = useQuery(api.leaderboard.getTopPosts, {limit: 10})
+function AuthenticatedFeed({ topPosts }: { topPosts: NonNullable<ReturnType<typeof useQuery<typeof api.leaderboard.getTopPosts>>> }) {
+    return (
+        <div className="homepage-grid homepage-grid-auth">
+            <aside className="homepage-left-panel">
+                <WhereIAmWidget />
+            </aside>
+            <div className="homepage-main">
+                <div className="feed-container">
+                    <h2 className="section-title">Trending Today</h2>
+                    <div className="posts-list">
+                        {topPosts.map((post) => (
+                            <PostCard key={post._id} post={post} showSubreddit={true} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <aside className="homepage-sidebar">
+                <ProfileWidget />
+                <TopSpacesWidget />
+                <NewestUsersWidget />
+                <StravaWidget />
+            </aside>
+        </div>
+    );
+}
 
-    if (!topPosts) {
-        return <div className="homepage-grid"><div className="homepage-main">Loading...</div></div>
-    }
+function UnauthenticatedFeed({ topPosts }: { topPosts: NonNullable<ReturnType<typeof useQuery<typeof api.leaderboard.getTopPosts>>> }) {
     return (
         <div className="homepage-grid">
             <div className="homepage-main">
@@ -40,15 +62,21 @@ export function Feed() {
                 </div>
             </div>
             <aside className="homepage-sidebar">
-                <Authenticated>
-                    <ProfileWidget />
-                </Authenticated>
                 <TopSpacesWidget />
                 <NewestUsersWidget />
-                <Authenticated>
-                    <StravaWidget />
-                </Authenticated>
             </aside>
         </div>
     );
+}
+
+export function Feed() {
+    const topPosts = useQuery(api.leaderboard.getTopPosts, {limit: 10})
+    const { isSignedIn } = useUser();
+
+    if (!topPosts) {
+        return <div className="homepage-grid"><div className="homepage-main">Loading...</div></div>
+    }
+    return isSignedIn
+        ? <AuthenticatedFeed topPosts={topPosts} />
+        : <UnauthenticatedFeed topPosts={topPosts} />;
 }
