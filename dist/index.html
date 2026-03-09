@@ -5,8 +5,16 @@
     <link rel="icon" type="image/png" href="/cahill-captures.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cahill Captures</title>
-    <script type="module" crossorigin src="/assets/index-Cvro0CTt.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-TSjMepuq.css">
+    <link rel="alternate" type="application/rss+xml" title="Cahill Captures" href="https://cahillcaptures.space/feed.xml" />
+    <script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved !== null ? saved : preferred);
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-CHF9MJ01.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-s1XJn9TM.css">
   </head>
   <body>
     <div id="root"></div>

@@ -83,10 +83,11 @@ export function WhereIAmWidget() {
         myStatus.expiresAt > Date.now();
 
     // Sort: current user first, then others
+    const myId = myStatus?._id;
     const sorted = statuses
         ? [...statuses].sort((a, b) => {
-              if (a.username === username) return -1;
-              if (b.username === username) return 1;
+              if (a._id === myId) return -1;
+              if (b._id === myId) return 1;
               return 0;
           })
         : [];
@@ -123,7 +124,7 @@ export function WhereIAmWidget() {
 
                     {/* Status list */}
                     {sorted.map((row) => {
-                        const isMe = row.username === username;
+                        const isMe = myStatus !== null && myStatus !== undefined && row._id === myStatus._id;
                         const traveling =
                             row.travelLocation !== undefined &&
                             row.expiresAt !== undefined;
