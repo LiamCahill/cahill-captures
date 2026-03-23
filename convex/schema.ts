@@ -73,6 +73,28 @@ export default defineSchema({
         userId: v.id("users")
     })
     .index("byPost",["postId"])
-    .index("byUser", ["userId"])
-
+    .index("byUser", ["userId"]),
+    messages: defineTable({
+        senderId: v.id("users"),
+        recipientId: v.id("users"),
+        content: v.string(),
+        isRead: v.boolean(),
+    })
+    .index("byRecipient", ["recipientId"])
+    .index("byConversation", ["senderId", "recipientId"])
+    .index("byUnreadRecipient", ["recipientId", "isRead"]),
+    conversations: defineTable({
+        user1Id: v.id("users"),
+        user2Id: v.id("users"),
+        lastMessageTime: v.number(),
+        lastMessageContent: v.optional(v.string()),
+    })
+    .index("byUser1", ["user1Id"])
+    .index("byUser2", ["user2Id"]),
+    blocks: defineTable({
+        blockerId: v.id("users"),
+        blockedUserId: v.id("users"),
+    })
+    .index("byBlocker", ["blockerId"])
+    .index("byBlocked", ["blockedUserId"]),
 });

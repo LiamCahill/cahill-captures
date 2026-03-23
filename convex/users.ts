@@ -115,6 +115,18 @@ export const getPublicUser = query({
   },
 })
 
+export const getUserByUsername = query({
+  args: { username: v.string() },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("byUsername", (q) => q.eq("username", args.username))
+      .unique()
+    if (!user) return null
+    return { _id: user._id, username: user.username }
+  },
+})
+
 export const getNewestUsers = query({
   args: {},
   handler: async (ctx) => {

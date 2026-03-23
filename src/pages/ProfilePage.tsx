@@ -1,13 +1,20 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "convex/react";
+import { useUser } from "@clerk/clerk-react";
 import {api} from "../../convex/_generated/api"
 import PostCard from "../components/PostCard";
 import "../styles/ProfilePage.css";
 
 const ProfilePage = () => {
   const {username} = useParams()
+  const navigate = useNavigate()
+  const { user: clerkUser } = useUser()
   const posts = useQuery(api.post.userPosts, {authorUsername: username || ""})
   const stats = useQuery(api.users.getPublicUser, {username: username || ""})
+  const profileUser = useQuery(api.users.getUserByUsername, {username: username || ""})
+
+  const isOwnProfile = clerkUser?.username === username
+  const showMessageButton = clerkUser && !isOwnProfile && profileUser
 
   if (posts === undefined || stats === undefined) {
     return (
@@ -34,8 +41,21 @@ const ProfilePage = () => {
   return (
     <div className="content-container">
       <div className="profile-header">
-        <h1>u/{username}</h1>
-        <p className="profile-post-count">{stats.posts ?? 0} {(stats.posts ?? 0) === 1 ? "post" : "posts"}</p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <h1>u/{username}</h1>
+            <p className="profile-post-count">{stats.posts ?? 0} {(stats.posts ?? 0) === 1 ? "post" : "posts"}</p>
+          </div>
+          {showMessageButton && (
+            <button
+              className="submit-button"
+              style={{ marginTop: 4 }}
+              onClick={() => navigate(`/messages/${profileUser._id}`)}
+            >
+              Send Message
+            </button>
+          )}
+        </div>
       </div>
       <div className="posts-container">
         {posts.length === 0 ? (

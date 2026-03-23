@@ -6,6 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SpacePage from "./pages/SpacePage";
 import SubmitPage from "./pages/SubmitPage";
 import StravaCallback from "./pages/StravaCallback";
+import MessagesPage from "./pages/MessagesPage";
 import "./styles/App.css";
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
                   <Route path="c/:spaceName/submit" element={<SubmitPage />} />
                   <Route path="u/:username" element={<ProfilePage />} />
                   <Route path="post/:postId" element ={<PostPage />}/>
+                  <Route path="messages" element={<MessagesPage />} />
+                  <Route path="messages/:userId" element={<MessagesPage />} />
                   <Route path="strava-callback" element={<StravaCallback />} />
                   <Route path="*" element ={<Navigate to="/" replace />}/>                
                 </Route>

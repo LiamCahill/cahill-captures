@@ -1,10 +1,11 @@
-import { FaPlus, FaUser, FaSun, FaMoon } from "react-icons/fa";
+import { FaPlus, FaUser, FaSun, FaMoon, FaEnvelope } from "react-icons/fa";
 import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
-import { Authenticated, Unauthenticated } from "convex/react";
+import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { Link, useNavigate } from "react-router-dom";
 import CreateDropdown from "./CreateDropDown";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
+import { api } from "../../convex/_generated/api";
 import "../styles/Navbar.css";
 
 function useTheme() {
@@ -21,6 +22,31 @@ function useTheme() {
 
   return { theme, toggle };
 }
+
+const MessagesIcon = () => {
+  const navigate = useNavigate();
+  const unreadCount = useQuery(api.dm.getUnreadCount) ?? 0;
+  return (
+    <button
+      className="icon-button"
+      onClick={() => navigate("/messages")}
+      title="Messages"
+      style={{ position: "relative" }}
+    >
+      <FaEnvelope />
+      {unreadCount > 0 && (
+        <span style={{
+          position: "absolute", top: "-4px", right: "-4px",
+          background: "var(--accent)", color: "#fff",
+          borderRadius: "10px", padding: "1px 5px",
+          fontSize: "10px", fontWeight: 700, lineHeight: "1.4",
+        }}>
+          {unreadCount}
+        </span>
+      )}
+    </button>
+  );
+};
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -49,6 +75,7 @@ const Navbar = () => {
             </SignInButton>
           </Unauthenticated>
           <Authenticated>
+            <MessagesIcon />
             <div className="dropdown-container">
               <button className="icon-button" onClick={() => setShowDropdown(true)}>
                 <FaPlus />
