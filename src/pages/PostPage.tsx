@@ -11,7 +11,11 @@ const PostPage = () => {
 
   const { postId } = useParams<{ postId: Id<"post"> }>();
   const navigate = useNavigate();
-  const post = useQuery(api.post.getPost, {id: postId!});
+  const post = useQuery(api.post.getPost, postId ? {id: postId} : "skip");
+
+  if (!postId) {
+    return <div className="post-page loading"><div className="container">Post not found.</div></div>;
+  }
 
   if (!post) {
     return <div className="post-page loading">

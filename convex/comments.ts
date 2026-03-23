@@ -33,7 +33,9 @@ export const getComments = query({
         )
 
         const authorMap = new Map(
-            authors.map(author => [author!._id, author!.username])
+            authors
+                .filter((author): author is NonNullable<typeof author> => author !== null)
+                .map(author => [author._id, author.username])
         )
 
         return comments.map((comment) => ({

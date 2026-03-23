@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import {api} from "../../convex/_generated/api"
@@ -19,6 +19,13 @@ const SearchBar = () => {
     const currentSpace = spaceMatch ? spaceMatch[1] : null;
     const [searchQuery, setSearchQuery] = useState("")
     const [isActive, setIsActive] = useState(false)
+    const blurTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    useEffect(() => {
+        return () => {
+            if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current)
+        }
+    }, [])
 
     // perform the search query
     const spaceSearch = useQuery(api.space.search, currentSpace ? "skip" : {
@@ -35,7 +42,7 @@ const SearchBar = () => {
     }
 
     const handleBlur = () => {
-        setTimeout(() => setIsActive(false), 200)
+        blurTimeoutRef.current = setTimeout(() => setIsActive(false), 200)
     }
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

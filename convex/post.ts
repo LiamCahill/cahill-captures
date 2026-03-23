@@ -55,10 +55,7 @@ async function getEnrichedPost(ctx: QueryCtx, post: Doc<"post">): Promise<Enrich
     return {
         ...post,
         author: author? {username: author.username} : undefined,
-        space: {
-            _id: space!._id,
-            name: space!.name
-        },
+        space: space ? { _id: space._id, name: space.name } : undefined,
         imageUrl: image ?? undefined
     }
 }
@@ -151,7 +148,7 @@ export const getRecentPosts = query({
 export const search = query({
     args: {queryStr: v.string(), space: v.string()},
     handler: async (ctx, args) => {
-        if (args.queryStr) return []
+        if (!args.queryStr) return []
 
         const spaceObj = await ctx.db.query("space").filter((q) => q.eq(q.field("name"), args.space))
         .unique();

@@ -23,7 +23,10 @@ export default function StravaCallback() {
 
         exchangeCode({ code })
             .then(() => navigate("/", { replace: true }))
-            .catch(() => navigate("/", { replace: true }));
+            .catch((err) => {
+                console.error("Strava auth error:", err);
+                navigate("/", { replace: true });
+            });
     }, []);
 
     return (
